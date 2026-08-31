@@ -11,9 +11,7 @@ on:
       - main
 
 jobs:
-  # ============================================================
-  # 1. FORMATOWANIE I ANALIZA STATYCZNA
-  # ============================================================
+ 
   quality-gate:
     name: Code Quality
     runs-on: ubuntu-latest
@@ -52,9 +50,7 @@ jobs:
             -Iinclude \
             src/
 
-  # ============================================================
-  # 2. KOMPILACJA SOURCE CODE - x86 32-bit
-  # ============================================================
+
   compile-x86-32:
     name: Compile - x86 32-bit
     needs: quality-gate
@@ -90,9 +86,7 @@ jobs:
 
           mv *.o build/
 
-  # ============================================================
-  # 3. KOMPILACJA SOURCE CODE - x86 64-bit
-  # ============================================================
+
   compile-x86-64:
     name: Compile - x86 64-bit
     needs: quality-gate
@@ -128,9 +122,7 @@ jobs:
 
           mv *.o build/
 
-  # ============================================================
-  # 4. KOMPILACJA AVR
-  # ============================================================
+
   compile-avr:
     name: Compile - AVR
     needs: quality-gate
@@ -166,9 +158,7 @@ jobs:
 
           mv *.o build/
 
-  # ============================================================
-  # 5. SPRAWDZENIE RÓŻNYCH KONFIGURACJI #DEFINE
-  # ============================================================
+
   configuration-check:
     name: Configuration - ${{ matrix.configuration }}
     needs: quality-gate
@@ -245,9 +235,6 @@ jobs:
             echo "#define CSSTV_ENABLE_${mode} 1"
           done > csstv_config.h
 
-      # ----------------------------------------------------------
-      # Pozostałe konfiguracje można obsłużyć identycznie.
-      # ----------------------------------------------------------
 
       - name: Compile configured source
         run: |
@@ -266,9 +253,7 @@ jobs:
 
           mv *.o build/
 
-  # ============================================================
-  # 6. TESTY JEDNOSTKOWE
-  # ============================================================
+ 
   unit-tests:
     name: Unit Tests
     needs:
@@ -301,9 +286,7 @@ jobs:
         run: |
           ./test_suite
 
-  # ============================================================
-  # 7. FINAL QUALITY GATE
-  # ============================================================
+
   ci-success:
     name: CI Success
     needs:
