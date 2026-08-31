@@ -1,0 +1,331 @@
+name: CSSTV Code Validation
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # ============================================================
+  # 1. FORMATOWANIE I ANALIZA STATYCZNA
+  # ============================================================
+  quality-gate:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            clang-format \
+            cppcheck
+
+      # ----------------------------------------------------------
+      # clang-format
+      # ----------------------------------------------------------
+      - name: Check formatting
+        run: |
+          clang-format --dry-run --Werror \
+            src/*.c \
+            include/*.h
+
+      # ----------------------------------------------------------
+      # cppcheck
+      # ----------------------------------------------------------
+      - name: Static analysis
+        run: |
+          cppcheck \
+            --enable=all \
+            --inconclusive \
+            --std=c99 \
+            --language=c \
+            --error-exitcode=1 \
+            -Iinclude \
+            src/
+
+  # ============================================================
+  # 2. KOMPILACJA SOURCE CODE - x86 32-bit
+  # ============================================================
+  compile-x86-32:
+    name: Compile - x86 32-bit
+    needs: quality-gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-multilib
+
+      - name: Compile source
+        run: |
+          mkdir -p build
+
+          gcc \
+            -m32 \
+            -std=c99 \
+            -Wall \
+            -Wextra \
+            -Werror \
+            -Wpedantic \
+            -Wconversion \
+            -Wsign-conversion \
+            -Wshadow \
+            -Wstrict-prototypes \
+            -Wmissing-prototypes \
+            -Iinclude \
+            -c src/*.c
+
+          mv *.o build/
+
+  # ============================================================
+  # 3. KOMPILACJA SOURCE CODE - x86 64-bit
+  # ============================================================
+  compile-x86-64:
+    name: Compile - x86 64-bit
+    needs: quality-gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc
+
+      - name: Compile source
+        run: |
+          mkdir -p build
+
+          gcc \
+            -m64 \
+            -std=c99 \
+            -Wall \
+            -Wextra \
+            -Werror \
+            -Wpedantic \
+            -Wconversion \
+            -Wsign-conversion \
+            -Wshadow \
+            -Wstrict-prototypes \
+            -Wmissing-prototypes \
+            -Iinclude \
+            -c src/*.c
+
+          mv *.o build/
+
+  # ============================================================
+  # 4. KOMPILACJA AVR
+  # ============================================================
+  compile-avr:
+    name: Compile - AVR
+    needs: quality-gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install AVR toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            gcc-avr \
+            avr-libc
+
+      - name: Compile source
+        run: |
+          mkdir -p build
+
+          avr-gcc \
+            -mmcu=atmega328p \
+            -std=c99 \
+            -Wall \
+            -Wextra \
+            -Werror \
+            -Wpedantic \
+            -Wshadow \
+            -Wstrict-prototypes \
+            -Wmissing-prototypes \
+            -Iinclude \
+            -c src/*.c
+
+          mv *.o build/
+
+  # ============================================================
+  # 5. SPRAWDZENIE RÓŻNYCH KONFIGURACJI #DEFINE
+  # ============================================================
+  configuration-check:
+    name: Configuration - ${{ matrix.configuration }}
+    needs: quality-gate
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        configuration:
+          - pd50
+          - pd90
+          - pd120
+          - pd160
+          - pd180
+          - pd240
+          - pd290
+          - all
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc
+
+      - name: Configure PD50
+        if: matrix.configuration == 'pd50'
+        run: |
+          echo '#define CSSTV_ENABLE_PD50 1' > csstv_config.h
+          echo '#define CSSTV_ENABLE_PD90 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD120 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD160 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD180 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD240 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD290 0' >> csstv_config.h
+
+      - name: Configure PD90
+        if: matrix.configuration == 'pd90'
+        run: |
+          echo '#define CSSTV_ENABLE_PD50 0' > csstv_config.h
+          echo '#define CSSTV_ENABLE_PD90 1' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD120 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD160 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD180 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD240 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD290 0' >> csstv_config.h
+
+      - name: Configure PD120
+        if: matrix.configuration == 'pd120'
+        run: |
+          echo '#define CSSTV_ENABLE_PD50 0' > csstv_config.h
+          echo '#define CSSTV_ENABLE_PD90 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD120 1' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD160 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD180 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD240 0' >> csstv_config.h
+          echo '#define CSSTV_ENABLE_PD290 0' >> csstv_config.h
+
+      - name: Configure all formats
+        if: matrix.configuration == 'all'
+        run: |
+          for mode in \
+            PD50 \
+            PD90 \
+            PD120 \
+            PD160 \
+            PD180 \
+            PD240 \
+            PD290
+          do
+            echo "#define CSSTV_ENABLE_${mode} 1"
+          done > csstv_config.h
+
+      # ----------------------------------------------------------
+      # Pozostałe konfiguracje można obsłużyć identycznie.
+      # ----------------------------------------------------------
+
+      - name: Compile configured source
+        run: |
+          mkdir -p build
+
+          gcc \
+            -std=c99 \
+            -Wall \
+            -Wextra \
+            -Werror \
+            -Wpedantic \
+            -Iinclude \
+            -I. \
+            -include csstv_config.h \
+            -c src/*.c
+
+          mv *.o build/
+
+  # ============================================================
+  # 6. TESTY JEDNOSTKOWE
+  # ============================================================
+  unit-tests:
+    name: Unit Tests
+    needs:
+      - quality-gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc
+
+      - name: Build tests
+        run: |
+          gcc \
+            -std=c99 \
+            -Wall \
+            -Wextra \
+            -Werror \
+            -Wpedantic \
+            -Iinclude \
+            src/*.c \
+            tests/*.c \
+            -o test_suite
+
+      - name: Run tests
+        run: |
+          ./test_suite
+
+  # ============================================================
+  # 7. FINAL QUALITY GATE
+  # ============================================================
+  ci-success:
+    name: CI Success
+    needs:
+      - quality-gate
+      - compile-x86-32
+      - compile-x86-64
+      - compile-avr
+      - configuration-check
+      - unit-tests
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: All checks passed
+        run: |
+          echo "======================================"
+          echo " CSSTV CI PASSED"
+          echo "======================================"
+          echo "Source formatting: OK"
+          echo "Static analysis:   OK"
+          echo "x86-32:            OK"
+          echo "x86-64:            OK"
+          echo "AVR:               OK"
+          echo "Configurations:    OK"
+          echo "Unit tests:        OK"
