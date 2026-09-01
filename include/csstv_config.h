@@ -9,7 +9,7 @@
 
 
 #ifndef CSSTV_ENABLE_ENCODER
-#define CSSTV_ENABLE_ENCODER 1
+#define CSSTV_ENABLE_ENCODER 0
 #endif
 
 /*for future versions
@@ -23,31 +23,31 @@
 
 
 #ifndef CSSTV_ENABLE_PD50
-#define CSSTV_ENABLE_PD50 1
+#define CSSTV_ENABLE_PD50 0
 #endif
 
 #ifndef CSSTV_ENABLE_PD90
-#define CSSTV_ENABLE_PD90 1
+#define CSSTV_ENABLE_PD90 0
 #endif
 
 #ifndef CSSTV_ENABLE_PD120
-#define CSSTV_ENABLE_PD120 1
+#define CSSTV_ENABLE_PD120 0
 #endif
 
 #ifndef CSSTV_ENABLE_PD160
-#define CSSTV_ENABLE_PD160 1
+#define CSSTV_ENABLE_PD160 0
 #endif
 
 #ifndef CSSTV_ENABLE_PD180
-#define CSSTV_ENABLE_PD180 1
+#define CSSTV_ENABLE_PD180 0
 #endif
 
 #ifndef CSSTV_ENABLE_PD240
-#define CSSTV_ENABLE_PD240 1
+#define CSSTV_ENABLE_PD240 0
 #endif
 
 #ifndef CSSTV_ENABLE_PD290
-#define CSSTV_ENABLE_PD290 1
+#define CSSTV_ENABLE_PD290 0
 #endif
 
 /* ========================================================================== */
