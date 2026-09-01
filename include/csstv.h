@@ -139,7 +139,7 @@ typedef int16_t csstv_sample_t;
 
 
 #ifndef CSSTV_ENCODER_STORAGE_SIZE
-#define CSSTV_ENCODER_STORAGE_SIZE 256U
+#define CSSTV_ENCODER_STORAGE_SIZE 512U
 #endif
 
 typedef union
