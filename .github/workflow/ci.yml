@@ -1,3 +1,4 @@
+```yaml
 name: CSSTV Code Validation
 
 on:
@@ -10,8 +11,23 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+
+
+# ============================================================================
+# Common configuration
+# ============================================================================
+
+env:
+  CXX_STANDARD: c++17
+
+
+# ============================================================================
+# Code quality
+# ============================================================================
+
 jobs:
- 
+
   quality-gate:
     name: Code Quality
     runs-on: ubuntu-latest
@@ -27,29 +43,96 @@ jobs:
             clang-format \
             cppcheck
 
-      # ----------------------------------------------------------
+      # ----------------------------------------------------------------------
       # clang-format
-      # ----------------------------------------------------------
-      - name: Check formatting
-        run: |
-          clang-format --dry-run --Werror \
-            src/*.c \
-            include/*.h
+      # ----------------------------------------------------------------------
 
-      # ----------------------------------------------------------
+      - name: Check C/C++ formatting
+        shell: bash
+        run: |
+          set -e
+
+          files=$(find include src tests examples \
+            \( -name '*.h' -o -name '*.c' -o -name '*.cpp' -o -name '*.hpp' \) \
+            -type f)
+
+          if [ -z "$files" ]; then
+            echo "No C/C++ source files found."
+            exit 1
+          fi
+
+          clang-format \
+            --dry-run \
+            --Werror \
+            $files
+
+      # ----------------------------------------------------------------------
       # cppcheck
-      # ----------------------------------------------------------
+      # ----------------------------------------------------------------------
+
       - name: Static analysis
         run: |
           cppcheck \
             --enable=all \
             --inconclusive \
-            --std=c99 \
-            --language=c \
+            --std=c++17 \
+            --language=c++ \
             --error-exitcode=1 \
             -Iinclude \
             src/
 
+
+
+  c-api-check:
+    name: C API Compatibility
+    needs: quality-gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install C compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc
+
+      - name: Check public header with C99
+        run: |
+          cat > /tmp/c_api_check.c <<'EOF'
+          #include "csstv.h"
+
+          int main(void)
+          {
+              csstv_encoder_t encoder;
+              csstv_image_t image;
+              csstv_mode_info_t info;
+
+              (void)encoder;
+              (void)image;
+              (void)info;
+
+              return 0;
+          }
+          EOF
+
+          gcc \
+            -std=c99 \
+            -Wall \
+            -Wextra \
+            -Werror \
+            -Wpedantic \
+            -Wconversion \
+            -Wsign-conversion \
+            -Wshadow \
+            -Iinclude \
+            -c /tmp/c_api_check.c \
+            -o /tmp/c_api_check.o
+
+
+# ============================================================================
+# x86 32-bit
+# ============================================================================
 
   compile-x86-32:
     name: Compile - x86 32-bit
@@ -63,15 +146,28 @@ jobs:
       - name: Install compiler
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc-multilib
+          sudo apt-get install -y \
+            g++-multilib
 
-      - name: Compile source
+      - name: Compile C++ source
+        shell: bash
         run: |
+          set -e
+
           mkdir -p build
 
-          gcc \
+          mapfile -t sources < <(
+            find src -type f -name '*.cpp'
+          )
+
+          if [ "${#sources[@]}" -eq 0 ]; then
+            echo "No C++ source files found."
+            exit 1
+          fi
+
+          g++ \
             -m32 \
-            -std=c99 \
+            -std=${CXX_STANDARD} \
             -Wall \
             -Wextra \
             -Werror \
@@ -79,13 +175,15 @@ jobs:
             -Wconversion \
             -Wsign-conversion \
             -Wshadow \
-            -Wstrict-prototypes \
-            -Wmissing-prototypes \
             -Iinclude \
-            -c src/*.c
+            -c "${sources[@]}"
 
-          mv *.o build/
+          mv ./*.o build/
 
+
+# ============================================================================
+# x86 64-bit
+# ============================================================================
 
   compile-x86-64:
     name: Compile - x86 64-bit
@@ -99,15 +197,27 @@ jobs:
       - name: Install compiler
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc
+          sudo apt-get install -y g++
 
-      - name: Compile source
+      - name: Compile C++ source
+        shell: bash
         run: |
+          set -e
+
           mkdir -p build
 
-          gcc \
+          mapfile -t sources < <(
+            find src -type f -name '*.cpp'
+          )
+
+          if [ "${#sources[@]}" -eq 0 ]; then
+            echo "No C++ source files found."
+            exit 1
+          fi
+
+          g++ \
             -m64 \
-            -std=c99 \
+            -std=${CXX_STANDARD} \
             -Wall \
             -Wextra \
             -Werror \
@@ -115,13 +225,15 @@ jobs:
             -Wconversion \
             -Wsign-conversion \
             -Wshadow \
-            -Wstrict-prototypes \
-            -Wmissing-prototypes \
             -Iinclude \
-            -c src/*.c
+            -c "${sources[@]}"
 
-          mv *.o build/
+          mv ./*.o build/
 
+
+# ============================================================================
+# AVR
+# ============================================================================
 
   compile-avr:
     name: Compile - AVR
@@ -137,27 +249,45 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             gcc-avr \
+            g++-avr \
             avr-libc
 
-      - name: Compile source
+      - name: Compile C++ source
+        shell: bash
         run: |
+          set -e
+
           mkdir -p build
 
-          avr-gcc \
+          mapfile -t sources < <(
+            find src -type f -name '*.cpp'
+          )
+
+          if [ "${#sources[@]}" -eq 0 ]; then
+            echo "No C++ source files found."
+            exit 1
+          fi
+
+          avr-g++ \
             -mmcu=atmega328p \
-            -std=c99 \
+            -std=${CXX_STANDARD} \
             -Wall \
             -Wextra \
             -Werror \
             -Wpedantic \
             -Wshadow \
-            -Wstrict-prototypes \
-            -Wmissing-prototypes \
             -Iinclude \
-            -c src/*.c
+            -c "${sources[@]}"
 
-          mv *.o build/
+          mv ./*.o build/
 
+
+# ============================================================================
+# Encoder configuration checks
+#
+# Each mode is compiled independently.
+# This verifies that build-time feature selection actually works.
+# ============================================================================
 
   configuration-check:
     name: Configuration - ${{ matrix.configuration }}
@@ -185,79 +315,141 @@ jobs:
       - name: Install compiler
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc
+          sudo apt-get install -y g++
 
-      - name: Configure PD50
-        if: matrix.configuration == 'pd50'
+      - name: Set configuration
+        shell: bash
         run: |
-          echo '#define CSSTV_ENABLE_PD50 1' > csstv_config.h
-          echo '#define CSSTV_ENABLE_PD90 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD120 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD160 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD180 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD240 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD290 0' >> csstv_config.h
+          case "${{ matrix.configuration }}" in
+            pd50)
+              echo "CSSTV_MODE=CSSTV_ENCODER_MODE_PD50" >> "$GITHUB_ENV"
+              ;;
 
-      - name: Configure PD90
-        if: matrix.configuration == 'pd90'
-        run: |
-          echo '#define CSSTV_ENABLE_PD50 0' > csstv_config.h
-          echo '#define CSSTV_ENABLE_PD90 1' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD120 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD160 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD180 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD240 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD290 0' >> csstv_config.h
+            pd90)
+              echo "CSSTV_MODE=CSSTV_ENCODER_MODE_PD90" >> "$GITHUB_ENV"
+              ;;
 
-      - name: Configure PD120
-        if: matrix.configuration == 'pd120'
-        run: |
-          echo '#define CSSTV_ENABLE_PD50 0' > csstv_config.h
-          echo '#define CSSTV_ENABLE_PD90 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD120 1' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD160 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD180 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD240 0' >> csstv_config.h
-          echo '#define CSSTV_ENABLE_PD290 0' >> csstv_config.h
+            pd120)
+              echo "CSSTV_MODE=CSSTV_ENCODER_MODE_PD120" >> "$GITHUB_ENV"
+              ;;
 
-      - name: Configure all formats
-        if: matrix.configuration == 'all'
-        run: |
-          for mode in \
-            PD50 \
-            PD90 \
-            PD120 \
-            PD160 \
-            PD180 \
-            PD240 \
-            PD290
-          do
-            echo "#define CSSTV_ENABLE_${mode} 1"
-          done > csstv_config.h
+            pd160)
+              echo "CSSTV_MODE=CSSTV_ENCODER_MODE_PD160" >> "$GITHUB_ENV"
+              ;;
 
+            pd180)
+              echo "CSSTV_MODE=CSSTV_ENCODER_MODE_PD180" >> "$GITHUB_ENV"
+              ;;
+
+            pd240)
+              echo "CSSTV_MODE=CSSTV_ENCODER_MODE_PD240" >> "$GITHUB_ENV"
+              ;;
+
+            pd290)
+              echo "CSSTV_MODE=CSSTV_ENCODER_MODE_PD290" >> "$GITHUB_ENV"
+              ;;
+
+            all)
+              echo "CSSTV_MODE=ALL" >> "$GITHUB_ENV"
+              ;;
+
+            *)
+              echo "Unknown configuration."
+              exit 1
+              ;;
+          esac
 
       - name: Compile configured source
+        shell: bash
         run: |
+          set -e
+
           mkdir -p build
 
-          gcc \
-            -std=c99 \
+          mapfile -t sources < <(
+            find src -type f -name '*.cpp'
+          )
+
+          if [ "${#sources[@]}" -eq 0 ]; then
+            echo "No C++ source files found."
+            exit 1
+          fi
+
+          defines=(
+            -DCSSTV_ENABLE_ENCODER=1
+            -DCSSTV_ENABLE_DECODER=0
+          )
+
+          case "${CSSTV_MODE}" in
+            CSSTV_ENCODER_MODE_PD50)
+              defines+=(-DCSSTV_ENCODER_MODE_PD50=1)
+              ;;
+
+            CSSTV_ENCODER_MODE_PD90)
+              defines+=(-DCSSTV_ENCODER_MODE_PD90=1)
+              ;;
+
+            CSSTV_ENCODER_MODE_PD120)
+              defines+=(-DCSSTV_ENCODER_MODE_PD120=1)
+              ;;
+
+            CSSTV_ENCODER_MODE_PD160)
+              defines+=(-DCSSTV_ENCODER_MODE_PD160=1)
+              ;;
+
+            CSSTV_ENCODER_MODE_PD180)
+              defines+=(-DCSSTV_ENCODER_MODE_PD180=1)
+              ;;
+
+            CSSTV_ENCODER_MODE_PD240)
+              defines+=(-DCSSTV_ENCODER_MODE_PD240=1)
+              ;;
+
+            CSSTV_ENCODER_MODE_PD290)
+              defines+=(-DCSSTV_ENCODER_MODE_PD290=1)
+              ;;
+
+            ALL)
+              defines+=(
+                -DCSSTV_ENCODER_MODE_PD50=1
+                -DCSSTV_ENCODER_MODE_PD90=1
+                -DCSSTV_ENCODER_MODE_PD120=1
+                -DCSSTV_ENCODER_MODE_PD160=1
+                -DCSSTV_ENCODER_MODE_PD180=1
+                -DCSSTV_ENCODER_MODE_PD240=1
+                -DCSSTV_ENCODER_MODE_PD290=1
+              )
+              ;;
+
+            *)
+              echo "Invalid configuration."
+              exit 1
+              ;;
+          esac
+
+          g++ \
+            -std=${CXX_STANDARD} \
             -Wall \
             -Wextra \
             -Werror \
             -Wpedantic \
+            -Wconversion \
+            -Wsign-conversion \
+            -Wshadow \
             -Iinclude \
-            -I. \
-            -include csstv_config.h \
-            -c src/*.c
+            "${defines[@]}" \
+            -c "${sources[@]}"
 
-          mv *.o build/
+          mv ./*.o build/
 
- 
+
+# ============================================================================
+# Unit tests
+# ============================================================================
+
   unit-tests:
     name: Unit Tests
-    needs:
-      - quality-gate
+    needs: quality-gate
     runs-on: ubuntu-latest
 
     steps:
@@ -267,30 +459,62 @@ jobs:
       - name: Install compiler
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc
+          sudo apt-get install -y g++
 
       - name: Build tests
+        shell: bash
         run: |
-          gcc \
-            -std=c99 \
+          set -e
+
+          mkdir -p build
+
+          mapfile -t sources < <(
+            find src -type f -name '*.cpp'
+          )
+
+          mapfile -t tests < <(
+            find tests -type f \( -name '*.cpp' -o -name '*.c' \)
+          )
+
+          if [ "${#tests[@]}" -eq 0 ]; then
+            echo "No test files found."
+            exit 1
+          fi
+
+          g++ \
+            -std=${CXX_STANDARD} \
             -Wall \
             -Wextra \
             -Werror \
             -Wpedantic \
             -Iinclude \
-            src/*.c \
-            tests/*.c \
-            -o test_suite
+            -DCSSTV_ENABLE_ENCODER=1 \
+            -DCSSTV_ENCODER_MODE_PD50=1 \
+            -DCSSTV_ENCODER_MODE_PD90=1 \
+            -DCSSTV_ENCODER_MODE_PD120=1 \
+            -DCSSTV_ENCODER_MODE_PD160=1 \
+            -DCSSTV_ENCODER_MODE_PD180=1 \
+            -DCSSTV_ENCODER_MODE_PD240=1 \
+            -DCSSTV_ENCODER_MODE_PD290=1 \
+            "${sources[@]}" \
+            "${tests[@]}" \
+            -o build/test_suite
 
       - name: Run tests
         run: |
-          ./test_suite
+          ./build/test_suite
 
+
+# ============================================================================
+# Final status
+# ============================================================================
 
   ci-success:
     name: CI Success
+
     needs:
       - quality-gate
+      - c-api-check
       - compile-x86-32
       - compile-x86-64
       - compile-avr
@@ -305,10 +529,12 @@ jobs:
           echo "======================================"
           echo " CSSTV CI PASSED"
           echo "======================================"
-          echo "Source formatting: OK"
-          echo "Static analysis:   OK"
-          echo "x86-32:            OK"
-          echo "x86-64:            OK"
-          echo "AVR:               OK"
-          echo "Configurations:    OK"
-          echo "Unit tests:        OK"
+          echo "C API compatibility: OK"
+          echo "C/C++ formatting:    OK"
+          echo "Static analysis:     OK"
+          echo "x86-32:              OK"
+          echo "x86-64:              OK"
+          echo "AVR:                 OK"
+          echo "Configurations:      OK"
+          echo "Unit tests:          OK"
+```
