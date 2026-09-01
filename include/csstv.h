@@ -1,4 +1,4 @@
-```c
+
 #ifndef CSSTV_H
 #define CSSTV_H
 
@@ -242,4 +242,4 @@ const char *csstv_version_string(void);
 #endif
 
 #endif /* CSSTV_H */
-```
+

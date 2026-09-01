@@ -1,4 +1,4 @@
-```c
+
 #ifndef CSSTV_CONFIG_H
 #define CSSTV_CONFIG_H
 
@@ -72,4 +72,4 @@
 #endif
 
 #endif /* CSSTV_CONFIG_H */
-```
+
