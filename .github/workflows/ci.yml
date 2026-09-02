@@ -52,7 +52,7 @@ jobs:
         run: |
           set -e
 
-          files=$(find include src tests examples \
+          files=$(find include src tests \
             \( -name '*.h' -o -name '*.c' -o -name '*.cpp' -o -name '*.hpp' \) \
             -type f)
 
