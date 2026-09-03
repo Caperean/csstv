@@ -42,12 +42,12 @@ jobs:
           sudo apt-get install -y \
             clang-format \
             cppcheck
+
       - name: Auto-format C/C++ code
         run: |
-          find include src tests -type f -name '*.h'   -exec clang-format -i {} \;
-          find include src tests -type f -name '*.hpp' -exec clang-format -i {} \;
-          find include src tests -type f -name '*.c'   -exec clang-format -i {} \;
-          find include src tests -type f -name '*.cpp' -exec clang-format -i {} \;
+          for f in $(find include src tests -type f -name '*.h' -o -name '*.hpp' -o -name '*.c' -o -name '*.cpp'); do
+            clang-format -i "$f"
+          done
 
 
 
