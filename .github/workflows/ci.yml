@@ -47,14 +47,14 @@ jobs:
 
       - name: Auto-format C/C++ code
         run: |
-          for dir in include src tests; do
-            if [ -d "$dir" ]; then
-              find "$dir" -type f -name "*.h"   -exec clang-format -i {} \;
-              find "$dir" -type f -name "*.hpp" -exec clang-format -i {} \;
-              find "$dir" -type f -name "*.c"   -exec clang-format -i {} \;
-              find "$dir" -type f -name "*.cpp" -exec clang-format -i {} \;
-            fi
+          files=$(find include src tests \
+            -type f \
+            -name '*.h' -o -name '*.hpp' -o -name '*.c' -o -name '*.cpp')
+
+          for f in $files; do
+            clang-format-18 -i "$f"
           done
+
 
 
 
