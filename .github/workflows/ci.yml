@@ -44,7 +44,11 @@ jobs:
             cppcheck
       - name: Auto-format C/C++ code
         run: |
-          clang-format -i $(find include src tests -type f \( -name '*.h' -o -name '*.hpp' -o -name '*.c' -o -name '*.cpp' \))
+          find include src tests -type f -name '*.h'   -exec clang-format -i {} \;
+          find include src tests -type f -name '*.hpp' -exec clang-format -i {} \;
+          find include src tests -type f -name '*.c'   -exec clang-format -i {} \;
+          find include src tests -type f -name '*.cpp' -exec clang-format -i {} \;
+
 
 
       # ----------------------------------------------------------------------
