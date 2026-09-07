@@ -1,0 +1,16 @@
+# ninja log v7
+10	287	8101738572770130	CMakeFiles/csstv_lib.dir/src/core/image.cpp.obj	d97d1ccc370f433
+4	320	8101738572688544	CMakeFiles/csstv_lib.dir/src/core/encoder.cpp.obj	1ce2061428857492
+20	356	8101738572876271	CMakeFiles/csstv_lib.dir/src/core/mode.cpp.obj	fa8b654f3e25ccce
+67	387	8101738573329166	CMakeFiles/csstv_lib.dir/src/modes/pd/pd_modes.cpp.obj	b6305365a5463672
+39	661	8101738573150622	CMakeFiles/csstv_lib.dir/src/modes/pd/pd.cpp.obj	ca2679843907f321
+333	670	8101738576060866	tests/CMakeFiles/csstv_tests.dir/test_image.cpp.obj	3f5ecfd8b9b1db3f
+28	691	8101738572941330	CMakeFiles/csstv_lib.dir/src/core/tone.cpp.obj	b1cd55a8fa628562
+696	887	8101738579620714	libcsstv_lib.a	8ba675c3c9914146
+370	896	8101738576393089	tests/CMakeFiles/csstv_tests.dir/test_modes.cpp.obj	83519b906bcff9b7
+297	1028	8101738575675878	tests/CMakeFiles/csstv_tests.dir/test_main.cpp.obj	f2f9100257034205
+14	347	8101739270214129	tests/CMakeFiles/csstv_tests.dir/test_modes.cpp.obj	83519b906bcff9b7
+6	353	8101739445332056	tests/CMakeFiles/csstv_tests.dir/test_main.cpp.obj	f2f9100257034205
+354	497	8101739448813429	tests/csstv_tests.exe	6cfdb21627b9a790
+12	320	8103036485701586	tests/CMakeFiles/csstv_tests.dir/test_image.cpp.obj	3f5ecfd8b9b1db3f
+322	627	8103036488793404	tests/csstv_tests.exe	6cfdb21627b9a790

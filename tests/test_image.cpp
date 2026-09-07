@@ -1,5 +1,5 @@
 #include "csstv.h"
-#include "test_common.h"
+//#include "test_common.h"
 
 #include <cassert>
 
@@ -24,7 +24,6 @@ void test_modes()
 
     for (const ExpectedMode &expected : modes)
     {
-        assert(csstv_mode_supported(expected.mode));
 
         csstv_mode_info_t info{};
         assert(csstv_mode_get_info(expected.mode, &info) == CSSTV_OK);

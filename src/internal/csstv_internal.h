@@ -62,13 +62,13 @@ static_assert(sizeof(EncoderState) <= CSSTV_ENCODER_STORAGE_SIZE,
               "csstv::EncoderState does not fit in CSSTV_ENCODER_STORAGE_SIZE bytes -- "
               "increase CSSTV_ENCODER_STORAGE_SIZE in csstv_config.h");
 
-static_assert(alignof(csstv_encoder_alignment_t) >= alignof(EncoderState),
+static_assert(alignof(::csstv_encoder_alignment_t) >= alignof(EncoderState),
               "csstv_encoder_alignment_t does not provide sufficient alignment for "
               "csstv::EncoderState");
 
 /* Reinterpret an encoder handle's storage as the internal state. */
-EncoderState *encoder_state(csstv_encoder_t *encoder);
-const EncoderState *encoder_state(const csstv_encoder_t *encoder);
+EncoderState *encoder_state(::csstv_encoder_t *encoder);
+const EncoderState *encoder_state(const ::csstv_encoder_t *encoder);
 
 } /* namespace csstv */
 

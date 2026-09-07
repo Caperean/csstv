@@ -1,0 +1,8 @@
+C:/Users/jakub/Desktop/csstv/build/CMakeFiles/csstv_lib.dir
+C:/Users/jakub/Desktop/csstv/build/CMakeFiles/test.dir
+C:/Users/jakub/Desktop/csstv/build/CMakeFiles/edit_cache.dir
+C:/Users/jakub/Desktop/csstv/build/CMakeFiles/rebuild_cache.dir
+C:/Users/jakub/Desktop/csstv/build/tests/CMakeFiles/csstv_tests.dir
+C:/Users/jakub/Desktop/csstv/build/tests/CMakeFiles/test.dir
+C:/Users/jakub/Desktop/csstv/build/tests/CMakeFiles/edit_cache.dir
+C:/Users/jakub/Desktop/csstv/build/tests/CMakeFiles/rebuild_cache.dir

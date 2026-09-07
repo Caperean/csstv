@@ -8,7 +8,7 @@
  */
 
 #ifndef CSSTV_ENABLE_ENCODER
-#define CSSTV_ENABLE_ENCODER 0
+#define CSSTV_ENABLE_ENCODER 1
 #endif
 
 #ifndef CSSTV_ENABLE_DECODER

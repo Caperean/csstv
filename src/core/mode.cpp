@@ -1,6 +1,6 @@
 #include "csstv.h"
 #include "csstv_mode_driver.h"
-#include "modes/pd/pd.h"
+#include "pd/pd.h"
 
 namespace csstv {
 

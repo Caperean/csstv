@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/jakub/Desktop/csstv/build/cmake_install.cmake",
+		"C:/Users/jakub/Desktop/csstv/build/tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
