@@ -2,6 +2,8 @@ add_executable(csstv_tests
     test_main.cpp
     test_image.cpp
     test_modes.cpp
+    test_pd_all_modes.cpp
+    test_encoder_lifecycle.cpp
 )
 
 target_include_directories(csstv_tests PRIVATE
@@ -14,4 +16,3 @@ target_include_directories(csstv_tests PRIVATE
 target_link_libraries(csstv_tests PRIVATE csstv_lib)
 
 add_test(NAME csstv_tests COMMAND csstv_tests)
-
