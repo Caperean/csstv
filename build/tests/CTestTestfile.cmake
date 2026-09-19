@@ -5,4 +5,4 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 add_test(csstv_tests "C:/Users/jakub/Desktop/csstv/build/tests/csstv_tests.exe")
-set_tests_properties(csstv_tests PROPERTIES  _BACKTRACE_TRIPLES "C:/Users/jakub/Desktop/csstv/tests/CMakeLists.txt;16;add_test;C:/Users/jakub/Desktop/csstv/tests/CMakeLists.txt;0;")
+set_tests_properties(csstv_tests PROPERTIES  _BACKTRACE_TRIPLES "C:/Users/jakub/Desktop/csstv/tests/CMakeLists.txt;18;add_test;C:/Users/jakub/Desktop/csstv/tests/CMakeLists.txt;0;")

@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: CSSTV
-# Configurations: 
+# Configurations: Release
 # =============================================================================
 
 #############################################
@@ -20,6 +20,11 @@
 
 ninja_required_version = 1.5
 
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Release
 # =============================================================================
 # Include auxiliary files.
 
@@ -44,64 +49,64 @@ cmake_ninja_workdir = C$:/Users/jakub/Desktop/csstv/build/
 
 build cmake_object_order_depends_target_csstv_lib: phony || .
 
-build CMakeFiles/csstv_lib.dir/src/core/encoder.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/core/encoder.cpp || cmake_object_order_depends_target_csstv_lib
+build CMakeFiles/csstv_lib.dir/src/core/encoder.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_Release C$:/Users/jakub/Desktop/csstv/src/core/encoder.cpp || cmake_object_order_depends_target_csstv_lib
+  CONFIG = Release
+  DEFINES = -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\core\encoder.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
   OBJECT_DIR = CMakeFiles\csstv_lib.dir
   OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\core
-  TARGET_COMPILE_PDB = CMakeFiles\csstv_lib.dir\csstv_lib.pdb
-  TARGET_PDB = libcsstv_lib.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
-build CMakeFiles/csstv_lib.dir/src/core/image.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/core/image.cpp || cmake_object_order_depends_target_csstv_lib
+build CMakeFiles/csstv_lib.dir/src/core/image.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_Release C$:/Users/jakub/Desktop/csstv/src/core/image.cpp || cmake_object_order_depends_target_csstv_lib
+  CONFIG = Release
+  DEFINES = -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\core\image.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
   OBJECT_DIR = CMakeFiles\csstv_lib.dir
   OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\core
-  TARGET_COMPILE_PDB = CMakeFiles\csstv_lib.dir\csstv_lib.pdb
-  TARGET_PDB = libcsstv_lib.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
-build CMakeFiles/csstv_lib.dir/src/core/mode.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/core/mode.cpp || cmake_object_order_depends_target_csstv_lib
+build CMakeFiles/csstv_lib.dir/src/core/mode.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_Release C$:/Users/jakub/Desktop/csstv/src/core/mode.cpp || cmake_object_order_depends_target_csstv_lib
+  CONFIG = Release
+  DEFINES = -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\core\mode.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
   OBJECT_DIR = CMakeFiles\csstv_lib.dir
   OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\core
-  TARGET_COMPILE_PDB = CMakeFiles\csstv_lib.dir\csstv_lib.pdb
-  TARGET_PDB = libcsstv_lib.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
-build CMakeFiles/csstv_lib.dir/src/core/tone.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/core/tone.cpp || cmake_object_order_depends_target_csstv_lib
+build CMakeFiles/csstv_lib.dir/src/core/tone.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_Release C$:/Users/jakub/Desktop/csstv/src/core/tone.cpp || cmake_object_order_depends_target_csstv_lib
+  CONFIG = Release
+  DEFINES = -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\core\tone.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
   OBJECT_DIR = CMakeFiles\csstv_lib.dir
   OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\core
-  TARGET_COMPILE_PDB = CMakeFiles\csstv_lib.dir\csstv_lib.pdb
-  TARGET_PDB = libcsstv_lib.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
-build CMakeFiles/csstv_lib.dir/src/modes/pd/pd.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/modes/pd/pd.cpp || cmake_object_order_depends_target_csstv_lib
+build CMakeFiles/csstv_lib.dir/src/modes/pd/pd.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_Release C$:/Users/jakub/Desktop/csstv/src/modes/pd/pd.cpp || cmake_object_order_depends_target_csstv_lib
+  CONFIG = Release
+  DEFINES = -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\modes\pd\pd.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
   OBJECT_DIR = CMakeFiles\csstv_lib.dir
   OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\modes\pd
-  TARGET_COMPILE_PDB = CMakeFiles\csstv_lib.dir\csstv_lib.pdb
-  TARGET_PDB = libcsstv_lib.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
-build CMakeFiles/csstv_lib.dir/src/modes/pd/pd_modes.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/modes/pd/pd_modes.cpp || cmake_object_order_depends_target_csstv_lib
+build CMakeFiles/csstv_lib.dir/src/modes/pd/pd_modes.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_Release C$:/Users/jakub/Desktop/csstv/src/modes/pd/pd_modes.cpp || cmake_object_order_depends_target_csstv_lib
+  CONFIG = Release
+  DEFINES = -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\modes\pd\pd_modes.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
   OBJECT_DIR = CMakeFiles\csstv_lib.dir
   OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\modes\pd
-  TARGET_COMPILE_PDB = CMakeFiles\csstv_lib.dir\csstv_lib.pdb
-  TARGET_PDB = libcsstv_lib.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
 
@@ -112,13 +117,14 @@ build CMakeFiles/csstv_lib.dir/src/modes/pd/pd_modes.cpp.obj: CXX_COMPILER__csst
 #############################################
 # Link the static library libcsstv_lib.a
 
-build libcsstv_lib.a: CXX_STATIC_LIBRARY_LINKER__csstv_lib_ CMakeFiles/csstv_lib.dir/src/core/encoder.cpp.obj CMakeFiles/csstv_lib.dir/src/core/image.cpp.obj CMakeFiles/csstv_lib.dir/src/core/mode.cpp.obj CMakeFiles/csstv_lib.dir/src/core/tone.cpp.obj CMakeFiles/csstv_lib.dir/src/modes/pd/pd.cpp.obj CMakeFiles/csstv_lib.dir/src/modes/pd/pd_modes.cpp.obj
+build libcsstv_lib.a: CXX_STATIC_LIBRARY_LINKER__csstv_lib_Release CMakeFiles/csstv_lib.dir/src/core/encoder.cpp.obj CMakeFiles/csstv_lib.dir/src/core/image.cpp.obj CMakeFiles/csstv_lib.dir/src/core/mode.cpp.obj CMakeFiles/csstv_lib.dir/src/core/tone.cpp.obj CMakeFiles/csstv_lib.dir/src/modes/pd/pd.cpp.obj CMakeFiles/csstv_lib.dir/src/modes/pd/pd_modes.cpp.obj
+  CONFIG = Release
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles\csstv_lib.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\csstv_lib.dir\csstv_lib.pdb
   TARGET_FILE = libcsstv_lib.a
-  TARGET_PDB = libcsstv_lib.pdb
+  TARGET_PDB = csstv_lib.a.dbg
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
 
@@ -170,34 +176,54 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build cmake_object_order_depends_target_csstv_tests: phony || cmake_object_order_depends_target_csstv_lib
 
-build tests/CMakeFiles/csstv_tests.dir/test_main.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_ C$:/Users/jakub/Desktop/csstv/tests/test_main.cpp || cmake_object_order_depends_target_csstv_tests
+build tests/CMakeFiles/csstv_tests.dir/test_main.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_Release C$:/Users/jakub/Desktop/csstv/tests/test_main.cpp || cmake_object_order_depends_target_csstv_tests
+  CONFIG = Release
+  DEFINES = -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = tests\CMakeFiles\csstv_tests.dir\test_main.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
   OBJECT_DIR = tests\CMakeFiles\csstv_tests.dir
   OBJECT_FILE_DIR = tests\CMakeFiles\csstv_tests.dir
-  TARGET_COMPILE_PDB = tests\CMakeFiles\csstv_tests.dir\
-  TARGET_PDB = tests\csstv_tests.pdb
   TARGET_SUPPORT_DIR = tests\CMakeFiles\csstv_tests.dir
 
-build tests/CMakeFiles/csstv_tests.dir/test_image.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_ C$:/Users/jakub/Desktop/csstv/tests/test_image.cpp || cmake_object_order_depends_target_csstv_tests
+build tests/CMakeFiles/csstv_tests.dir/test_image.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_Release C$:/Users/jakub/Desktop/csstv/tests/test_image.cpp || cmake_object_order_depends_target_csstv_tests
+  CONFIG = Release
+  DEFINES = -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = tests\CMakeFiles\csstv_tests.dir\test_image.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
   OBJECT_DIR = tests\CMakeFiles\csstv_tests.dir
   OBJECT_FILE_DIR = tests\CMakeFiles\csstv_tests.dir
-  TARGET_COMPILE_PDB = tests\CMakeFiles\csstv_tests.dir\
-  TARGET_PDB = tests\csstv_tests.pdb
   TARGET_SUPPORT_DIR = tests\CMakeFiles\csstv_tests.dir
 
-build tests/CMakeFiles/csstv_tests.dir/test_modes.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_ C$:/Users/jakub/Desktop/csstv/tests/test_modes.cpp || cmake_object_order_depends_target_csstv_tests
+build tests/CMakeFiles/csstv_tests.dir/test_modes.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_Release C$:/Users/jakub/Desktop/csstv/tests/test_modes.cpp || cmake_object_order_depends_target_csstv_tests
+  CONFIG = Release
+  DEFINES = -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = tests\CMakeFiles\csstv_tests.dir\test_modes.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
   OBJECT_DIR = tests\CMakeFiles\csstv_tests.dir
   OBJECT_FILE_DIR = tests\CMakeFiles\csstv_tests.dir
-  TARGET_COMPILE_PDB = tests\CMakeFiles\csstv_tests.dir\
-  TARGET_PDB = tests\csstv_tests.pdb
+  TARGET_SUPPORT_DIR = tests\CMakeFiles\csstv_tests.dir
+
+build tests/CMakeFiles/csstv_tests.dir/test_pd_all_modes.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_Release C$:/Users/jakub/Desktop/csstv/tests/test_pd_all_modes.cpp || cmake_object_order_depends_target_csstv_tests
+  CONFIG = Release
+  DEFINES = -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEP_FILE = tests\CMakeFiles\csstv_tests.dir\test_pd_all_modes.cpp.obj.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
+  OBJECT_DIR = tests\CMakeFiles\csstv_tests.dir
+  OBJECT_FILE_DIR = tests\CMakeFiles\csstv_tests.dir
+  TARGET_SUPPORT_DIR = tests\CMakeFiles\csstv_tests.dir
+
+build tests/CMakeFiles/csstv_tests.dir/test_encoder_lifecycle.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_Release C$:/Users/jakub/Desktop/csstv/tests/test_encoder_lifecycle.cpp || cmake_object_order_depends_target_csstv_tests
+  CONFIG = Release
+  DEFINES = -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEP_FILE = tests\CMakeFiles\csstv_tests.dir\test_encoder_lifecycle.cpp.obj.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
+  OBJECT_DIR = tests\CMakeFiles\csstv_tests.dir
+  OBJECT_FILE_DIR = tests\CMakeFiles\csstv_tests.dir
   TARGET_SUPPORT_DIR = tests\CMakeFiles\csstv_tests.dir
 
 
@@ -208,15 +234,16 @@ build tests/CMakeFiles/csstv_tests.dir/test_modes.cpp.obj: CXX_COMPILER__csstv_t
 #############################################
 # Link the executable tests\csstv_tests.exe
 
-build tests/csstv_tests.exe: CXX_EXECUTABLE_LINKER__csstv_tests_ tests/CMakeFiles/csstv_tests.dir/test_main.cpp.obj tests/CMakeFiles/csstv_tests.dir/test_image.cpp.obj tests/CMakeFiles/csstv_tests.dir/test_modes.cpp.obj | libcsstv_lib.a || libcsstv_lib.a
+build tests/csstv_tests.exe: CXX_EXECUTABLE_LINKER__csstv_tests_Release tests/CMakeFiles/csstv_tests.dir/test_main.cpp.obj tests/CMakeFiles/csstv_tests.dir/test_image.cpp.obj tests/CMakeFiles/csstv_tests.dir/test_modes.cpp.obj tests/CMakeFiles/csstv_tests.dir/test_pd_all_modes.cpp.obj tests/CMakeFiles/csstv_tests.dir/test_encoder_lifecycle.cpp.obj | libcsstv_lib.a || libcsstv_lib.a
+  CONFIG = Release
+  FLAGS = -O3 -DNDEBUG
   LINK_LIBRARIES = libcsstv_lib.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = tests\CMakeFiles\csstv_tests.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = tests\CMakeFiles\csstv_tests.dir\
   TARGET_FILE = tests\csstv_tests.exe
   TARGET_IMPLIB = tests\libcsstv_tests.dll.a
-  TARGET_PDB = tests\csstv_tests.pdb
+  TARGET_PDB = csstv_tests.exe.dbg
   TARGET_SUPPORT_DIR = tests\CMakeFiles\csstv_tests.dir
 
 
@@ -287,14 +314,14 @@ build tests/all: phony tests/csstv_tests.exe
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja C$:/Users/jakub/Desktop/csstv/build/cmake_install.cmake C$:/Users/jakub/Desktop/csstv/build/tests/cmake_install.cmake C$:/Users/jakub/Desktop/csstv/build/CTestTestfile.cmake C$:/Users/jakub/Desktop/csstv/build/tests/CTestTestfile.cmake: RERUN_CMAKE | C$:/Users/jakub/Desktop/csstv/CMakeLists.txt C$:/Users/jakub/Desktop/csstv/tests/CMakeLists.txt C$:/msys64/ucrt64/share/cmake/Modules/CMakeCXXCompiler.cmake.in C$:/msys64/ucrt64/share/cmake/Modules/CMakeCXXCompilerABI.cpp C$:/msys64/ucrt64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeCompilerIdDetection.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerId.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerSupport.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineRCCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineSystem.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeFindBinUtils.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeNinjaFindMake.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeRCCompiler.cmake.in C$:/msys64/ucrt64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeSystem.cmake.in C$:/msys64/ucrt64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeTestCXXCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeTestCompilerCommon.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeTestRCCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/ADSP-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/ARMCC-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/ARMClang-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/AppleClang-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Borland-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/CrayClang-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Diab-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Fujitsu-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU-CXX-CXXImportStd.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU-FindBinUtils.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/HP-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/OrangeC-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Renesas-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/TIClang-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Tasking-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/XL-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeInspectCXXLinker.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/FeatureTesting.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/Windows-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-Determine-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-GNU-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.2.1/CMakeCXXCompiler.cmake CMakeFiles/4.2.1/CMakeRCCompiler.cmake CMakeFiles/4.2.1/CMakeSystem.cmake
+build build.ninja C$:/Users/jakub/Desktop/csstv/build/cmake_install.cmake C$:/Users/jakub/Desktop/csstv/build/tests/cmake_install.cmake C$:/Users/jakub/Desktop/csstv/build/CTestTestfile.cmake C$:/Users/jakub/Desktop/csstv/build/tests/CTestTestfile.cmake: RERUN_CMAKE | C$:/Users/jakub/Desktop/csstv/CMakeLists.txt C$:/Users/jakub/Desktop/csstv/tests/CMakeLists.txt C$:/msys64/ucrt64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/Windows-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-GNU-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.2.1/CMakeCXXCompiler.cmake CMakeFiles/4.2.1/CMakeRCCompiler.cmake CMakeFiles/4.2.1/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Users/jakub/Desktop/csstv/CMakeLists.txt C$:/Users/jakub/Desktop/csstv/tests/CMakeLists.txt C$:/msys64/ucrt64/share/cmake/Modules/CMakeCXXCompiler.cmake.in C$:/msys64/ucrt64/share/cmake/Modules/CMakeCXXCompilerABI.cpp C$:/msys64/ucrt64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeCompilerIdDetection.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerId.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerSupport.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineRCCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineSystem.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeFindBinUtils.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeNinjaFindMake.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeRCCompiler.cmake.in C$:/msys64/ucrt64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeSystem.cmake.in C$:/msys64/ucrt64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeTestCXXCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeTestCompilerCommon.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeTestRCCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/ADSP-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/ARMCC-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/ARMClang-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/AppleClang-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Borland-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/CrayClang-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Diab-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Fujitsu-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU-CXX-CXXImportStd.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU-FindBinUtils.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/HP-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/OrangeC-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Renesas-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/TIClang-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Tasking-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/XL-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeInspectCXXLinker.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/FeatureTesting.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/Windows-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-Determine-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-GNU-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.2.1/CMakeCXXCompiler.cmake CMakeFiles/4.2.1/CMakeRCCompiler.cmake CMakeFiles/4.2.1/CMakeSystem.cmake: phony
+build C$:/Users/jakub/Desktop/csstv/CMakeLists.txt C$:/Users/jakub/Desktop/csstv/tests/CMakeLists.txt C$:/msys64/ucrt64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/Windows-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-GNU-CXX.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/ucrt64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.2.1/CMakeCXXCompiler.cmake CMakeFiles/4.2.1/CMakeRCCompiler.cmake CMakeFiles/4.2.1/CMakeSystem.cmake: phony
 
 
 #############################################

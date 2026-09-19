@@ -1,0 +1,59 @@
+Start testing: Sep 19 12:25 Europa Œrodkowa (czas letni)
+----------------------------------------------------------
+1/1 Testing: csstv_tests
+1/1 Test: csstv_tests
+Command: "C:/Users/jakub/Desktop/csstv/build/tests/csstv_tests.exe"
+Directory: C:/Users/jakub/Desktop/csstv/build/tests
+"csstv_tests" start time: Sep 19 12:25 Europa Œrodkowa (czas letni)
+Output:
+----------------------------------------------------------
+---- running test_gray8 ----
+---- running test_rgb888 ----
+---- running test_bgr888_channel_swap ----
+---- running test_rgb565_extremes_and_midtone ----
+---- running test_explicit_stride_padding ----
+---- running test_mode_supported_and_info ----
+---- running test_rejects_wrong_dimensions ----
+---- running test_rejects_null_and_bad_sample_rate ----
+---- running test_full_encode_decodes_correctly ----
+  porch Goertzel power: 1200=5.706e+11 1500=2.037e+12 1900=8.709e+10 2300=5.346e+10
+  decoded VIS code = 95 (expected 95)
+  Y=1829.8Hz (exp 1827.6)  Cr=2158.2Hz (exp 2160.2)  Cb=1768.1Hz (exp 1769.8)
+---- running test_reset_is_deterministic ----
+---- running test_all_pd_modes ----
+ -- PD50 (mode 0x0101, 320x256, vis=93) --
+    VIS=93/93  Y=1829.5/1827.6  Cr=2157.2/2160.2  Cb=1761.3/1769.8  dur=50594ms/50594ms
+ -- PD90 (mode 0x0102, 320x256, vis=99) --
+    VIS=99/99  Y=1828.0/1827.6  Cr=2165.4/2160.2  Cb=1769.3/1769.8  dur=90899ms/90899ms
+ -- PD120 (mode 0x0103, 640x496, vis=95) --
+    VIS=95/95  Y=1829.8/1827.6  Cr=2158.2/2160.2  Cb=1768.1/1769.8  dur=127013ms/127013ms
+ -- PD160 (mode 0x0104, 512x400, vis=98) --
+    VIS=98/98  Y=1827.6/1827.6  Cr=2159.9/2160.2  Cb=1770.1/1769.8  dur=161793ms/161793ms
+ -- PD180 (mode 0x0105, 640x496, vis=96) --
+    VIS=96/96  Y=1830.1/1827.6  Cr=2157.9/2160.2  Cb=1768.6/1769.8  dur=187962ms/187962ms
+ -- PD240 (mode 0x0106, 640x496, vis=97) --
+    VIS=97/97  Y=1830.5/1827.6  Cr=2162.6/2160.2  Cb=1769.1/1769.8  dur=248910ms/248910ms
+ -- PD290 (mode 0x0107, 800x616, vis=94) --
+    VIS=94/94  Y=1830.2/1827.6  Cr=2163.5/2160.2  Cb=1764.7/1769.8  dur=289592ms/289592ms
+---- running test_read_before_set_image_is_not_ready ----
+---- running test_reset_before_set_image_is_not_ready ----
+---- running test_zero_capacity_read_is_noop ----
+---- running test_null_sample_buffer_is_rejected_even_at_zero_capacity ----
+---- running test_read_after_finished_is_harmless ----
+---- running test_double_deinit_is_safe ----
+---- running test_finished_on_null_encoder ----
+---- running test_reuse_encoder_for_second_image ----
+---- running test_gray8_full_pipeline_neutral_chroma ----
+---- running test_custom_stride_full_pipeline ----
+---- running test_tiny_buffer_resumption_matches_bulk_read ----
+
+==== 205 checks, 0 failed ====
+<end of output>
+Test time =  27.37 sec
+----------------------------------------------------------
+Test Passed.
+"csstv_tests" end time: Sep 19 12:26 Europa Œrodkowa (czas letni)
+"csstv_tests" time elapsed: 00:00:27
+----------------------------------------------------------
+
+End testing: Sep 19 12:26 Europa Œrodkowa (czas letni)
