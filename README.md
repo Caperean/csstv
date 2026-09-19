@@ -1,7 +1,14 @@
-# csstv 
-A code/decode library for sstv focused on embedded systems mainly.
+#A lightweight SSTV encoding library writed for embedded systems.
 
-In current version csstv supports only encoding for following modes:
-PD50, PD90, PD120, PD160, PD180, PD140, PD290
- 
+The current version of csstv supports encoding only for the following PD modes:
+
+PD50
+PD90
+PD120
+PD160
+PD180
+PD240
+PD290
+
+Support for decoding and additional modes may be added in future releases.
 
