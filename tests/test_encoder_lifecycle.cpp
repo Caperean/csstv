@@ -137,9 +137,6 @@ void test_finished_on_null_encoder()
  * image into the second. */
 void test_reuse_encoder_for_second_image()
 {
-    const RGB first_color{0.0, 0.0, 0.0};   /* black -> Y = 1500 Hz */
-    const RGB second_color{255.0, 255.0, 255.0}; /* white -> Y = 2300 Hz */
-
     std::vector<uint8_t> black(static_cast<size_t>(320U) * 256U * 3U, 0U);
     std::vector<uint8_t> white(static_cast<size_t>(320U) * 256U * 3U, 255U);
 

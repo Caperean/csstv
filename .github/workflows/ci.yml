@@ -209,6 +209,8 @@ jobs:
             -Wsign-conversion \
             -Wshadow \
             -Iinclude \
+            -Isrc/internal \
+            -Isrc/modes \
             -c "${sources[@]}"
 
           mv ./*.o build/
@@ -259,6 +261,8 @@ jobs:
             -Wsign-conversion \
             -Wshadow \
             -Iinclude \
+            -Isrc/internal \
+            -Isrc/modes \
             -c "${sources[@]}"
 
           mv ./*.o build/
@@ -301,6 +305,7 @@ jobs:
             exit 1
           fi
 
+          # Decoder is too large for AVR targets; keep encoder-only here.
           avr-g++ \
             -mmcu=atmega328p \
             -std=${CXX_STANDARD} \
@@ -309,7 +314,10 @@ jobs:
             -Werror \
             -Wpedantic \
             -Wshadow \
+            -DCSSTV_ENABLE_DECODER=0 \
             -Iinclude \
+            -Isrc/internal \
+            -Isrc/modes \
             -c "${sources[@]}"
 
           mv ./*.o build/
@@ -470,6 +478,8 @@ jobs:
             -Wsign-conversion \
             -Wshadow \
             -Iinclude \
+            -Isrc/internal \
+            -Isrc/modes \
             "${defines[@]}" \
             -c "${sources[@]}"
 

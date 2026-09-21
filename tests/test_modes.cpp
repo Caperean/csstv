@@ -89,7 +89,8 @@ double goertzel_power(const std::vector<csstv_sample_t> &pcm, size_t start, size
         return -1.0;
     }
 
-    const double w = 2.0 * M_PI * target_freq_hz / static_cast<double>(sample_rate);
+    constexpr double kPi = 3.14159265358979323846;
+    const double w = 2.0 * kPi * target_freq_hz / static_cast<double>(sample_rate);
     const double coeff = 2.0 * std::cos(w);
     double s0 = 0.0, s1 = 0.0, s2 = 0.0;
 
