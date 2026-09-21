@@ -1,10 +1,10 @@
-Start testing: Sep 19 12:25 Europa Œrodkowa (czas letni)
+Start testing: Sep 21 19:19 Europa Œrodkowa (czas letni)
 ----------------------------------------------------------
 1/1 Testing: csstv_tests
 1/1 Test: csstv_tests
 Command: "C:/Users/jakub/Desktop/csstv/build/tests/csstv_tests.exe"
 Directory: C:/Users/jakub/Desktop/csstv/build/tests
-"csstv_tests" start time: Sep 19 12:25 Europa Œrodkowa (czas letni)
+"csstv_tests" start time: Sep 21 19:19 Europa Œrodkowa (czas letni)
 Output:
 ----------------------------------------------------------
 ---- running test_gray8 ----
@@ -46,14 +46,21 @@ Output:
 ---- running test_gray8_full_pipeline_neutral_chroma ----
 ---- running test_custom_stride_full_pipeline ----
 ---- running test_tiny_buffer_resumption_matches_bulk_read ----
+---- running test_write_before_set_image_is_not_ready ----
+---- running test_get_image_before_finished_is_not_ready ----
+---- running test_double_deinit_is_safe ----
+---- running test_roundtrip_solid_gray_pd50 ----
+---- running test_roundtrip_solid_color_pd50 ----
+---- running test_tiny_write_chunks_match_bulk ----
+---- running test_reset_redecodes ----
 
-==== 205 checks, 0 failed ====
+==== 237 checks, 0 failed ====
 <end of output>
-Test time =  27.37 sec
+Test time =  19.32 sec
 ----------------------------------------------------------
 Test Passed.
-"csstv_tests" end time: Sep 19 12:26 Europa Œrodkowa (czas letni)
-"csstv_tests" time elapsed: 00:00:27
+"csstv_tests" end time: Sep 21 19:19 Europa Œrodkowa (czas letni)
+"csstv_tests" time elapsed: 00:00:19
 ----------------------------------------------------------
 
-End testing: Sep 19 12:26 Europa Œrodkowa (czas letni)
+End testing: Sep 21 19:19 Europa Œrodkowa (czas letni)

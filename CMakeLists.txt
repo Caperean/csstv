@@ -15,10 +15,9 @@ target_include_directories(csstv_lib PUBLIC
     ${CMAKE_SOURCE_DIR}/src/internal
     ${CMAKE_SOURCE_DIR}/src/modes
     ${CMAKE_SOURCE_DIR}/tests
-    
 )
 
-# All PD modes are exercised by the test suite.
+# All PD modes are exercised by the test suite (encode + decode).
 target_compile_definitions(csstv_lib PUBLIC
     CSSTV_ENCODER_MODE_PD50=1
     CSSTV_ENCODER_MODE_PD90=1
@@ -27,6 +26,15 @@ target_compile_definitions(csstv_lib PUBLIC
     CSSTV_ENCODER_MODE_PD180=1
     CSSTV_ENCODER_MODE_PD240=1
     CSSTV_ENCODER_MODE_PD290=1
+    CSSTV_DECODER_MODE_PD50=1
+    CSSTV_DECODER_MODE_PD90=1
+    CSSTV_DECODER_MODE_PD120=1
+    CSSTV_DECODER_MODE_PD160=1
+    CSSTV_DECODER_MODE_PD180=1
+    CSSTV_DECODER_MODE_PD240=1
+    CSSTV_DECODER_MODE_PD290=1
+    CSSTV_ENABLE_ENCODER=1
+    CSSTV_ENABLE_DECODER=1
 )
 
 enable_testing()

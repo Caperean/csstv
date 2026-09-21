@@ -12,7 +12,7 @@
 #endif
 
 #ifndef CSSTV_ENABLE_DECODER
-#define CSSTV_ENABLE_DECODER 0
+#define CSSTV_ENABLE_DECODER 1
 #endif
 
 
@@ -54,12 +54,9 @@
 /*
  * ============================================================================
  * Decoder modes
- *
- * Decoder support is not implemented yet.
- * These options are reserved for future decoder implementations.
  * ============================================================================
  */
-/*
+
 #ifndef CSSTV_DECODER_MODE_PD50
 #define CSSTV_DECODER_MODE_PD50 0
 #endif
@@ -87,8 +84,6 @@
 #ifndef CSSTV_DECODER_MODE_PD290
 #define CSSTV_DECODER_MODE_PD290 0
 #endif
-
- */
 /*
  * ============================================================================
  * Static encoder storage
@@ -97,6 +92,16 @@
 
 #ifndef CSSTV_ENCODER_STORAGE_SIZE
 #define CSSTV_ENCODER_STORAGE_SIZE 512U
+#endif
+
+/*
+ * ============================================================================
+ * Static decoder storage
+ * ============================================================================
+ */
+
+#ifndef CSSTV_DECODER_STORAGE_SIZE
+#define CSSTV_DECODER_STORAGE_SIZE 4096U
 #endif
 
 

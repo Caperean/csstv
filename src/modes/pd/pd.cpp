@@ -344,6 +344,12 @@ const ModeParams *find_params(csstv_mode_t mode)
 csstv_status_t make_mode_info(csstv_mode_t mode, csstv_mode_info_t *info)
 {
     const ModeParams *params = find_params(mode);
+#if CSSTV_ENABLE_DECODER
+    if (params == nullptr)
+    {
+        params = find_decoder_params(mode);
+    }
+#endif
     if (params == nullptr)
     {
         return CSSTV_ERROR_UNSUPPORTED_MODE;
@@ -380,6 +386,47 @@ ModeDriver *create(csstv_mode_t mode, void *storage, size_t storage_size)
 
     return new (storage) Driver(*params);
 }
+
+#if CSSTV_ENABLE_DECODER
+
+const ModeParams *find_decoder_params(csstv_mode_t mode)
+{
+    switch (mode)
+    {
+#if CSSTV_DECODER_MODE_PD50
+        case CSSTV_MODE_PD50:
+            return &kPd50Params;
+#endif
+#if CSSTV_DECODER_MODE_PD90
+        case CSSTV_MODE_PD90:
+            return &kPd90Params;
+#endif
+#if CSSTV_DECODER_MODE_PD120
+        case CSSTV_MODE_PD120:
+            return &kPd120Params;
+#endif
+#if CSSTV_DECODER_MODE_PD160
+        case CSSTV_MODE_PD160:
+            return &kPd160Params;
+#endif
+#if CSSTV_DECODER_MODE_PD180
+        case CSSTV_MODE_PD180:
+            return &kPd180Params;
+#endif
+#if CSSTV_DECODER_MODE_PD240
+        case CSSTV_MODE_PD240:
+            return &kPd240Params;
+#endif
+#if CSSTV_DECODER_MODE_PD290
+        case CSSTV_MODE_PD290:
+            return &kPd290Params;
+#endif
+        default:
+            return nullptr;
+    }
+}
+
+#endif /* CSSTV_ENABLE_DECODER */
 
 } /* namespace pd */
 } /* namespace csstv */

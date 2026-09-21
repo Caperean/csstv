@@ -2,6 +2,11 @@
 #include "csstv_mode_driver.h"
 #include "pd/pd.h"
 
+#if CSSTV_ENABLE_DECODER
+#include "csstv_decoder_driver.h"
+#include "pd/pd_decoder.h"
+#endif
+
 namespace csstv {
 
 namespace {
@@ -14,7 +19,7 @@ constexpr csstv_mode_t kFamilyPd = 0x0100U;
 
 } /* namespace */
 
-bool mode_supported(csstv_mode_t mode)
+bool encoder_mode_supported(csstv_mode_t mode)
 {
     if ((mode & kFamilyMask) == kFamilyPd)
     {
@@ -22,6 +27,29 @@ bool mode_supported(csstv_mode_t mode)
     }
 
     return false;
+}
+
+#if CSSTV_ENABLE_DECODER
+
+bool decoder_mode_supported(csstv_mode_t mode)
+{
+    if ((mode & kFamilyMask) == kFamilyPd)
+    {
+        return pd::find_decoder_params(mode) != nullptr;
+    }
+
+    return false;
+}
+
+#endif /* CSSTV_ENABLE_DECODER */
+
+bool mode_supported(csstv_mode_t mode)
+{
+#if CSSTV_ENABLE_DECODER
+    return encoder_mode_supported(mode) || decoder_mode_supported(mode);
+#else
+    return encoder_mode_supported(mode);
+#endif
 }
 
 csstv_status_t mode_get_info(csstv_mode_t mode, csstv_mode_info_t *info)
@@ -48,6 +76,20 @@ ModeDriver *create_mode_driver(csstv_mode_t mode, void *storage, size_t storage_
 
     return nullptr;
 }
+
+#if CSSTV_ENABLE_DECODER
+
+DecoderDriver *create_decoder_driver(csstv_mode_t mode, void *storage, size_t storage_size)
+{
+    if ((mode & kFamilyMask) == kFamilyPd)
+    {
+        return pd::create_decoder(mode, storage, storage_size);
+    }
+
+    return nullptr;
+}
+
+#endif /* CSSTV_ENABLE_DECODER */
 
 } /* namespace csstv */
 

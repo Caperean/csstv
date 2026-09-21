@@ -503,7 +503,11 @@ jobs:
             -Werror \
             -Wpedantic \
             -Iinclude \
+            -Isrc/internal \
+            -Isrc/modes \
+            -Itests \
             -DCSSTV_ENABLE_ENCODER=1 \
+            -DCSSTV_ENABLE_DECODER=1 \
             -DCSSTV_ENCODER_MODE_PD50=1 \
             -DCSSTV_ENCODER_MODE_PD90=1 \
             -DCSSTV_ENCODER_MODE_PD120=1 \
@@ -511,6 +515,13 @@ jobs:
             -DCSSTV_ENCODER_MODE_PD180=1 \
             -DCSSTV_ENCODER_MODE_PD240=1 \
             -DCSSTV_ENCODER_MODE_PD290=1 \
+            -DCSSTV_DECODER_MODE_PD50=1 \
+            -DCSSTV_DECODER_MODE_PD90=1 \
+            -DCSSTV_DECODER_MODE_PD120=1 \
+            -DCSSTV_DECODER_MODE_PD160=1 \
+            -DCSSTV_DECODER_MODE_PD180=1 \
+            -DCSSTV_DECODER_MODE_PD240=1 \
+            -DCSSTV_DECODER_MODE_PD290=1 \
             "${sources[@]}" \
             "${tests[@]}" \
             -o build/test_suite

@@ -3,7 +3,7 @@
 #define CSSTV_H
 
 /*
- * csstv - SSTV encoder library
+ * csstv - SSTV encode/decode library
  *
  * Version 0.01
 
@@ -210,6 +210,95 @@ void csstv_encoder_deinit(
 );
 
 #endif /* CSSTV_ENABLE_ENCODER */
+
+/* ========================================================================== */
+/* Decoder                                                                    */
+/* ========================================================================== */
+
+#if CSSTV_ENABLE_DECODER
+
+
+#ifndef CSSTV_DECODER_STORAGE_SIZE
+#define CSSTV_DECODER_STORAGE_SIZE 4096U
+#endif
+
+typedef union
+{
+    uint64_t u64;
+    void *pointer;
+    long double long_double;
+
+} csstv_decoder_alignment_t;
+
+
+typedef struct
+{
+    csstv_decoder_alignment_t alignment;
+
+    uint8_t storage[CSSTV_DECODER_STORAGE_SIZE];
+
+} csstv_decoder_t;
+
+/* ========================================================================== */
+/* Decoder initialization                                                     */
+/* ========================================================================== */
+
+
+csstv_status_t csstv_decoder_init(
+    csstv_decoder_t *decoder,
+    csstv_mode_t mode,
+    uint32_t sample_rate
+);
+
+/* ========================================================================== */
+/* Image                                                                      */
+/* ========================================================================== */
+
+/*
+ * Bind a caller-owned RGB888 output buffer. Dimensions must match the
+ * selected mode. The buffer is filled as samples are written.
+ */
+csstv_status_t csstv_decoder_set_image(
+    csstv_decoder_t *decoder,
+    const csstv_image_t *image
+);
+
+/* ========================================================================== */
+/* Streaming input                                                           */
+/* ========================================================================== */
+
+csstv_status_t csstv_decoder_write(
+    csstv_decoder_t *decoder,
+    const csstv_sample_t *samples,
+    size_t count,
+    size_t *consumed
+);
+
+/* ========================================================================== */
+/* Decoder state                                                              */
+/* ========================================================================== */
+
+
+bool csstv_decoder_finished(
+    const csstv_decoder_t *decoder
+);
+
+
+csstv_status_t csstv_decoder_get_image(
+    csstv_decoder_t *decoder,
+    csstv_image_t *image
+);
+
+
+csstv_status_t csstv_decoder_reset(
+    csstv_decoder_t *decoder
+);
+
+void csstv_decoder_deinit(
+    csstv_decoder_t *decoder
+);
+
+#endif /* CSSTV_ENABLE_DECODER */
 
 /* ========================================================================== */
 /* Mode information                                                           */

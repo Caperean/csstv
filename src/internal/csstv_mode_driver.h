@@ -49,8 +49,16 @@ public:
     virtual csstv_status_t reset() = 0;
 };
 
-/* True if `mode` is both a recognized mode and enabled in this build. */
+/* True if `mode` is enabled for encoding and/or decoding in this build. */
 bool mode_supported(csstv_mode_t mode);
+
+/* True if `mode` can be used with the encoder in this build. */
+bool encoder_mode_supported(csstv_mode_t mode);
+
+#if CSSTV_ENABLE_DECODER
+/* True if `mode` can be used with the decoder in this build. */
+bool decoder_mode_supported(csstv_mode_t mode);
+#endif
 
 /* Fill `info` for `mode`. Returns CSSTV_ERROR_UNSUPPORTED_MODE if not supported. */
 csstv_status_t mode_get_info(csstv_mode_t mode, csstv_mode_info_t *info);

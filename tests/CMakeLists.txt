@@ -4,6 +4,7 @@ add_executable(csstv_tests
     test_modes.cpp
     test_pd_all_modes.cpp
     test_encoder_lifecycle.cpp
+    test_decoder_lifecycle.cpp
 )
 
 target_include_directories(csstv_tests PRIVATE

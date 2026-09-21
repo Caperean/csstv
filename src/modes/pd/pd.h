@@ -30,33 +30,39 @@ struct ModeParams
     uint8_t vis_code; /* 7-bit VIS code, sent LSB-first with even parity */
 };
 
-/* One declaration per mode, defined in the matching pdXXX.cpp, and
- * only compiled in when that mode is enabled in csstv_config.h. */
-#if CSSTV_ENCODER_MODE_PD50
+/* One declaration per mode, defined in pd_modes.cpp, and only
+ * compiled in when that mode is enabled for encoding and/or decoding. */
+#if CSSTV_ENCODER_MODE_PD50 || CSSTV_DECODER_MODE_PD50
 extern const ModeParams kPd50Params;
 #endif
-#if CSSTV_ENCODER_MODE_PD90
+#if CSSTV_ENCODER_MODE_PD90 || CSSTV_DECODER_MODE_PD90
 extern const ModeParams kPd90Params;
 #endif
-#if CSSTV_ENCODER_MODE_PD120
+#if CSSTV_ENCODER_MODE_PD120 || CSSTV_DECODER_MODE_PD120
 extern const ModeParams kPd120Params;
 #endif
-#if CSSTV_ENCODER_MODE_PD160
+#if CSSTV_ENCODER_MODE_PD160 || CSSTV_DECODER_MODE_PD160
 extern const ModeParams kPd160Params;
 #endif
-#if CSSTV_ENCODER_MODE_PD180
+#if CSSTV_ENCODER_MODE_PD180 || CSSTV_DECODER_MODE_PD180
 extern const ModeParams kPd180Params;
 #endif
-#if CSSTV_ENCODER_MODE_PD240
+#if CSSTV_ENCODER_MODE_PD240 || CSSTV_DECODER_MODE_PD240
 extern const ModeParams kPd240Params;
 #endif
-#if CSSTV_ENCODER_MODE_PD290
+#if CSSTV_ENCODER_MODE_PD290 || CSSTV_DECODER_MODE_PD290
 extern const ModeParams kPd290Params;
 #endif
 
 /* Looks up the params for `mode` among the modes enabled in this
  * build. Returns nullptr if `mode` isn't a PD mode or isn't enabled. */
 const ModeParams *find_params(csstv_mode_t mode);
+
+#if CSSTV_ENABLE_DECODER
+/* Looks up the params for `mode` among decoder modes enabled in this
+ * build. Returns nullptr if `mode` isn't a PD mode or isn't enabled. */
+const ModeParams *find_decoder_params(csstv_mode_t mode);
+#endif
 
 /* Fills `info` for `mode` (dimensions + nominal transmission time). */
 csstv_status_t make_mode_info(csstv_mode_t mode, csstv_mode_info_t *info);

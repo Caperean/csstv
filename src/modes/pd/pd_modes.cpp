@@ -1,10 +1,10 @@
-#include "pd.h" //pd_modes.cpp
+#include "pd.h"
 
 namespace csstv {
 
 namespace pd {
 
-#if CSSTV_ENCODER_MODE_PD50
+#if CSSTV_ENCODER_MODE_PD50 || CSSTV_DECODER_MODE_PD50
 
 const ModeParams kPd50Params = {
     CSSTV_MODE_PD50,
@@ -16,7 +16,7 @@ const ModeParams kPd50Params = {
 
 #endif
 
-#if CSSTV_ENCODER_MODE_PD90
+#if CSSTV_ENCODER_MODE_PD90 || CSSTV_DECODER_MODE_PD90
 
 const ModeParams kPd90Params = {
     CSSTV_MODE_PD90,
@@ -28,7 +28,7 @@ const ModeParams kPd90Params = {
 
 #endif
 
-#if CSSTV_ENCODER_MODE_PD120
+#if CSSTV_ENCODER_MODE_PD120 || CSSTV_DECODER_MODE_PD120
 
 const ModeParams kPd120Params = {
     CSSTV_MODE_PD120,
@@ -40,7 +40,7 @@ const ModeParams kPd120Params = {
 
 #endif
 
-#if CSSTV_ENCODER_MODE_PD160
+#if CSSTV_ENCODER_MODE_PD160 || CSSTV_DECODER_MODE_PD160
 
 const ModeParams kPd160Params = {
     CSSTV_MODE_PD160,
@@ -52,7 +52,7 @@ const ModeParams kPd160Params = {
 
 #endif
 
-#if CSSTV_ENCODER_MODE_PD180
+#if CSSTV_ENCODER_MODE_PD180 || CSSTV_DECODER_MODE_PD180
 
 const ModeParams kPd180Params = {
     CSSTV_MODE_PD180,
@@ -64,7 +64,7 @@ const ModeParams kPd180Params = {
 
 #endif
 
-#if CSSTV_ENCODER_MODE_PD240
+#if CSSTV_ENCODER_MODE_PD240 || CSSTV_DECODER_MODE_PD240
 
 const ModeParams kPd240Params = {
     CSSTV_MODE_PD240,
@@ -76,7 +76,7 @@ const ModeParams kPd240Params = {
 
 #endif
 
-#if CSSTV_ENCODER_MODE_PD290
+#if CSSTV_ENCODER_MODE_PD290 || CSSTV_DECODER_MODE_PD290
 
 const ModeParams kPd290Params = {
     CSSTV_MODE_PD290,
@@ -88,7 +88,6 @@ const ModeParams kPd290Params = {
 
 #endif
 
-}  // namespace pd
+} /* namespace pd */
 
-}  // namespace csstv
-
+} /* namespace csstv */

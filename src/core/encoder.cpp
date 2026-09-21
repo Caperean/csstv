@@ -102,7 +102,7 @@ csstv_status_t csstv_encoder_init(
         return CSSTV_ERROR_INVALID_SAMPLE_RATE;
     }
 
-    if (!csstv::mode_supported(mode))
+    if (!csstv::encoder_mode_supported(mode))
     {
         return CSSTV_ERROR_UNSUPPORTED_MODE;
     }
