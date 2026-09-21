@@ -42,8 +42,6 @@ jobs:
             clang-format \
             cppcheck
 
-          sudo ln -s /usr/bin/clang-format-18 /usr/bin/clang-format
-
       - name: Auto-format C/C++ code
         run: |
           files=$(find include src tests \
