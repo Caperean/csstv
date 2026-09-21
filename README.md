@@ -18,6 +18,6 @@ PD240
 PD290
 
 Encoding accepts GRAY8, RGB888, BGR888, and RGB565 input. Decoding writes
-caller-owned RGB888 output buffers (no heap allocation in the library).
+caller-owned RGB888 output buffers. 
 
 Additional mode families may be added in future releases.
