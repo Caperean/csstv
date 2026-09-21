@@ -64,7 +64,7 @@ private:
     bool next_segment(double &duration_ms, bool &recover_level);
     void finish_segment(double mean_freq_hz);
     void store_level(double level);
-    void write_rgb_pair(uint16_t x, uint8_t y1, uint8_t y2, uint8_t cr, uint8_t cb);
+    void write_rgb_pair(uint16_t x, uint8_t y1, uint8_t y2, uint8_t cr, uint8_t cb) const;
     void demod_reset();
     double demod_sample(csstv_sample_t sample);
 
