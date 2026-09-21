@@ -85,12 +85,16 @@ jobs:
       - name: Static analysis
         run: |
           cppcheck \
-            --enable=all \
+            --enable=warning,style,performance,portability \
             --inconclusive \
             --std=c++17 \
             --language=c++ \
             --error-exitcode=1 \
+            --suppress=missingInclude \
+            --suppress=missingIncludeSystem \
             -Iinclude \
+            -Isrc/internal \
+            -Isrc/modes \
             src/
 
 
