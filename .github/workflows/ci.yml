@@ -286,7 +286,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             gcc-avr \
-            g++-avr \
             avr-libc
 
       - name: Compile C++ source
