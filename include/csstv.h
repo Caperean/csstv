@@ -1,11 +1,10 @@
-
 #ifndef CSSTV_H
 #define CSSTV_H
 
 /*
  * csstv - SSTV encode/decode library
  *
- * Version 0.01
+ * Version 0.1.3
 
  */
 
@@ -14,6 +13,16 @@
 #include <stdint.h>
 
 #include "csstv_config.h"
+
+
+#if defined(__cplusplus)
+#define CSSTV_ALIGNAS(n) alignas(n)
+#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#include <stdalign.h>
+#define CSSTV_ALIGNAS(n) _Alignas(n)
+#else
+#define CSSTV_ALIGNAS(n)
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -147,6 +156,7 @@ typedef union
     uint64_t u64;
     void *pointer;
     long double long_double;
+    CSSTV_ALIGNAS(16) unsigned char force_alignment;
 
 } csstv_encoder_alignment_t;
 
@@ -227,6 +237,7 @@ typedef union
     uint64_t u64;
     void *pointer;
     long double long_double;
+    CSSTV_ALIGNAS(16) unsigned char force_alignment;
 
 } csstv_decoder_alignment_t;
 
@@ -331,4 +342,3 @@ const char *csstv_version_string(void);
 #endif
 
 #endif /* CSSTV_H */
-
