@@ -3,7 +3,7 @@
 
 #include "csstv.h"
 
-#include <cstdint>
+#include <stdint.h>
 
 namespace csstv {
 
