@@ -1,7 +1,23 @@
 #include "pd.h"
 
-#include <algorithm>
+/*
+ * <algorithm> and <new> are both unavailable when building for AVR:
+ * there is no libstdc++ for this target, only the freestanding
+ * compiler-provided C headers (see csstv_mode_driver.h and friends).
+ * <algorithm>'s std::min/std::max are used in exactly two places
+ * below and are replaced with plain comparisons. Placement new's
+ * `operator new(size_t, void*)` is normally *declared* in <new> (it
+ * is a library facility, not a language builtin), so on AVR it must
+ * be declared here instead.
+ */
+#if defined(__AVR__)
+inline void *operator new(size_t, void *ptr) noexcept
+{
+    return ptr;
+}
+#else
 #include <new>
+#endif
 
 namespace csstv {
 namespace pd {
@@ -34,7 +50,15 @@ constexpr double kLevelToFreqSpan = 800.0; /* 2300 - 1500 */
 
 double level_to_freq(double level_0_255)
 {
-    const double clamped = std::min(255.0, std::max(0.0, level_0_255));
+    double clamped = level_0_255;
+    if (clamped < 0.0)
+    {
+        clamped = 0.0;
+    }
+    if (clamped > 255.0)
+    {
+        clamped = 255.0;
+    }
     return kLevelToFreqMin + (clamped / 255.0) * kLevelToFreqSpan;
 }
 
@@ -284,7 +308,8 @@ csstv_status_t Driver::read(csstv_sample_t *out, size_t capacity, size_t *writte
             }
         }
 
-        const size_t n = std::min(capacity - total, segment_remaining_samples_);
+        const size_t remaining = capacity - total;
+        const size_t n = (remaining < segment_remaining_samples_) ? remaining : segment_remaining_samples_;
         tone_.generate(current_freq_hz_, n, out + total);
 
         total += n;
