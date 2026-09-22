@@ -6,8 +6,8 @@
 #include "image_reader.h"
 #include "tone_generator.h"
 
-#include <cstddef>
-#include <cstdint>
+#include <stddef.h>
+#include <stdint.h>
 
 namespace csstv {
 namespace pd {

@@ -4,8 +4,8 @@
 #include "csstv.h"
 #include "csstv_mode_driver.h"
 
-#include <cstddef>
-#include <cstdint>
+#include <stddef.h>
+#include <stdint.h>
 
 namespace csstv {
 
@@ -55,7 +55,7 @@ struct EncoderState
     EncoderStage stage;
 
     static constexpr size_t kDriverStateSize = 384U;
-    alignas(alignof(std::max_align_t)) uint8_t driver_state[kDriverStateSize];
+    alignas(alignof(max_align_t)) uint8_t driver_state[kDriverStateSize];
 };
 
 static_assert(sizeof(EncoderState) <= CSSTV_ENCODER_STORAGE_SIZE,
@@ -124,7 +124,7 @@ struct DecoderState
 
     /* Fits pd::DecoderDriver including per-line scratch for PD290. */
     static constexpr size_t kDriverStateSize = 3584U;
-    alignas(alignof(std::max_align_t)) uint8_t driver_state[kDriverStateSize];
+    alignas(alignof(max_align_t)) uint8_t driver_state[kDriverStateSize];
 };
 
 /* Reinterpret a decoder handle's storage as the internal state. */

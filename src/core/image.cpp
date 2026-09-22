@@ -1,6 +1,6 @@
 #include "image_reader.h"
 
-#include <cstring>
+#include <string.h>
 
 namespace csstv {
 
@@ -76,7 +76,7 @@ RGB8 ImageReader::pixel(uint16_t x, uint16_t y) const
             const uint8_t *p = row + static_cast<size_t>(x) * 2U;
 
             uint16_t packed;
-            std::memcpy(&packed, p, sizeof(packed)); /* avoid alignment UB */
+            memcpy(&packed, p, sizeof(packed)); /* avoid alignment UB */
 
             const uint8_t r5 = static_cast<uint8_t>((packed >> 11) & 0x1FU);
             const uint8_t g6 = static_cast<uint8_t>((packed >> 5) & 0x3FU);

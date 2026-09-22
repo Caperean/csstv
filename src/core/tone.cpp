@@ -1,6 +1,6 @@
 #include "tone_generator.h"
 
-#include <cmath>
+#include <math.h>
 
 namespace csstv {
 
@@ -47,7 +47,7 @@ void ToneGenerator::generate(double frequency_hz, size_t count, csstv_sample_t *
 
     for (size_t i = 0U; i < count; ++i)
     {
-        out[i] = static_cast<csstv_sample_t>(kAmplitude * std::sin(phase_radians_));
+        out[i] = static_cast<csstv_sample_t>(kAmplitude * sin(phase_radians_));
 
         phase_radians_ += increment;
 

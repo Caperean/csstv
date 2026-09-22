@@ -5,7 +5,7 @@
 #include "csstv_internal.h"
 #include "csstv_decoder_driver.h"
 
-#include <cstring>
+#include <string.h>
 
 using csstv::DecoderStage;
 using csstv::DecoderState;
@@ -79,7 +79,7 @@ csstv_status_t csstv_decoder_init(
 
     DecoderState *state = csstv::decoder_state(decoder);
 
-    std::memset(state, 0, sizeof(DecoderState));
+    memset(state, 0, sizeof(DecoderState));
 
     state->mode = mode;
     state->sample_rate = sample_rate;
@@ -300,7 +300,7 @@ void csstv_decoder_deinit(csstv_decoder_t *decoder)
         state->driver->~DecoderDriver();
     }
 
-    std::memset(state, 0, sizeof(DecoderState));
+    memset(state, 0, sizeof(DecoderState));
 }
 
 } /* extern "C" */
