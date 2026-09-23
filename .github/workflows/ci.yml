@@ -323,6 +323,78 @@ jobs:
 
 
 # ============================================================================
+# ARM Cortex-M
+# ============================================================================
+
+  compile-arm-cortex-m:
+    name: Compile - ARM Cortex-M
+    needs: quality-gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install ARM toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            gcc-arm-none-eabi \
+            libnewlib-arm-none-eabi
+
+      - name: Compile C++ source
+        shell: bash
+        run: |
+          set -e
+
+          mkdir -p build
+
+          mapfile -t sources < <(
+            find src -type f -name '*.cpp'
+          )
+
+          if [ "${#sources[@]}" -eq 0 ]; then
+            echo "No C++ source files found."
+            exit 1
+          fi
+
+          arm-none-eabi-g++ \
+            -mcpu=cortex-m4 \
+            -mthumb \
+            -mfloat-abi=soft \
+            -std=${CXX_STANDARD} \
+            -Wall \
+            -Wextra \
+            -Werror \
+            -Wpedantic \
+            -Wconversion \
+            -Wsign-conversion \
+            -Wshadow \
+            -Iinclude \
+            -Isrc/internal \
+            -Isrc/modes \
+            -DCSSTV_ENABLE_ENCODER=1 \
+            -DCSSTV_ENABLE_DECODER=1 \
+            -DCSSTV_ENCODER_MODE_PD50=1 \
+            -DCSSTV_ENCODER_MODE_PD90=1 \
+            -DCSSTV_ENCODER_MODE_PD120=1 \
+            -DCSSTV_ENCODER_MODE_PD160=1 \
+            -DCSSTV_ENCODER_MODE_PD180=1 \
+            -DCSSTV_ENCODER_MODE_PD240=1 \
+            -DCSSTV_ENCODER_MODE_PD290=1 \
+            -DCSSTV_DECODER_MODE_PD50=1 \
+            -DCSSTV_DECODER_MODE_PD90=1 \
+            -DCSSTV_DECODER_MODE_PD120=1 \
+            -DCSSTV_DECODER_MODE_PD160=1 \
+            -DCSSTV_DECODER_MODE_PD180=1 \
+            -DCSSTV_DECODER_MODE_PD240=1 \
+            -DCSSTV_DECODER_MODE_PD290=1 \
+            -c "${sources[@]}"
+
+          mv ./*.o build/
+
+
+# ============================================================================
 # Encoder configuration checks
 #
 # Each mode is compiled independently.
@@ -571,6 +643,7 @@ jobs:
       - compile-x86-32
       - compile-x86-64
       - compile-avr
+      - compile-arm-cortex-m
       - configuration-check
       - unit-tests
 
@@ -588,5 +661,6 @@ jobs:
           echo "x86-32:              OK"
           echo "x86-64:              OK"
           echo "AVR:                 OK"
+          echo "ARM Cortex-M:         OK"
           echo "Configurations:      OK"
           echo "Unit tests:          OK"
