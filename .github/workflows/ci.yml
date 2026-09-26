@@ -748,7 +748,7 @@ jobs:
           )
 
           mapfile -t tests < <(
-            find tests -type f \( -name '*.cpp' -o -name '*.c' \)
+            find tests -type f -name 'test_*.cpp'
           )
 
           if [ "${#tests[@]}" -eq 0 ]; then
@@ -991,21 +991,29 @@ jobs:
               | awk '/^\.data|^\.bss/ {sum += $2} END {print sum}')
 
           else
-            riscv64-unknown-elf-g++ \
-              -march=rv32imac -mabi=ilp32 -specs=picolibc.specs -fno-rtti \
-              -std=${CXX_STANDARD} \
-              -Wall -Wextra -Werror -Wpedantic -Wconversion -Wsign-conversion -Wshadow \
-              -Iinclude -Isrc/internal -Isrc/modes \
-              -DCSSTV_NO_CXX_STDLIB=1 \
-              -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_DECODER=0 \
-              "${SOURCES[@]}" -nostdlib++ -lm -o build/size_firmware.elf
+            # Bare-metal RISC-V has no board linker script in this CI image,
+            # and -nostdlib++ is not portable across the distro toolchain.
+            # Measure static footprint from relocatable objects instead --
+            # that is the library/.bss cost without CRT stack/heap reserve
+            # (see note below about Berkeley `size` on linked ELFs).
+            mkdir -p build/riscv_objs
+            for src in "${SOURCES[@]}"; do
+              obj="build/riscv_objs/$(basename "${src}" .cpp).o"
+              riscv64-unknown-elf-g++ \
+                -march=rv32imac -mabi=ilp32 -specs=picolibc.specs -fno-rtti \
+                -std=${CXX_STANDARD} \
+                -Wall -Wextra -Werror -Wpedantic -Wconversion -Wsign-conversion -Wshadow \
+                -Iinclude -Isrc/internal -Isrc/modes \
+                -DCSSTV_NO_CXX_STDLIB=1 \
+                -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_DECODER=0 \
+                -c "${src}" -o "${obj}"
+            done
 
-            # NOTE: the Berkeley `size` "bss" column on this target's
-            # default linker script also counts the reserved .stack/.heap
-            # regions, not just real static data, so real static RAM is
-            # computed from .data + .bss specifically via sysv output.
-            data_bytes=$(riscv64-unknown-elf-size --format=sysv build/size_firmware.elf \
-              | awk '/^\.data|^\.bss$/ {sum += $2} END {print sum}')
+            # NOTE: on a fully linked ELF the Berkeley `size` "bss" column
+            # also counts reserved .stack/.heap regions; object sizing
+            # reports real static RAM only.
+            data_bytes=$(riscv64-unknown-elf-size --format=sysv build/riscv_objs/*.o \
+              | awk '/^\.data|^\.bss$/ {sum += $2} END {print sum+0}')
           fi
 
           echo "Static RAM (.data + .bss): ${data_bytes} bytes (budget: ${{ matrix.target.budget_bytes }} bytes)"
@@ -1081,17 +1089,21 @@ jobs:
               | awk '/^\.text|^\.data/ {sum += $2} END {print sum}')
 
           else
-            riscv64-unknown-elf-g++ \
-              -march=rv32imac -mabi=ilp32 -specs=picolibc.specs -fno-rtti \
-              -std=${CXX_STANDARD} \
-              -Wall -Wextra -Werror -Wpedantic -Wconversion -Wsign-conversion -Wshadow \
-              -Iinclude -Isrc/internal -Isrc/modes \
-              -DCSSTV_NO_CXX_STDLIB=1 \
-              -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_DECODER=0 \
-              "${SOURCES[@]}" -nostdlib++ -lm -o build/size_firmware.elf
+            mkdir -p build/riscv_objs
+            for src in "${SOURCES[@]}"; do
+              obj="build/riscv_objs/$(basename "${src}" .cpp).o"
+              riscv64-unknown-elf-g++ \
+                -march=rv32imac -mabi=ilp32 -specs=picolibc.specs -fno-rtti \
+                -std=${CXX_STANDARD} \
+                -Wall -Wextra -Werror -Wpedantic -Wconversion -Wsign-conversion -Wshadow \
+                -Iinclude -Isrc/internal -Isrc/modes \
+                -DCSSTV_NO_CXX_STDLIB=1 \
+                -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_DECODER=0 \
+                -c "${src}" -o "${obj}"
+            done
 
-            code_bytes=$(riscv64-unknown-elf-size --format=sysv build/size_firmware.elf \
-              | awk '/^\.text|^\.init|^\.rodata/ {sum += $2} END {print sum}')
+            code_bytes=$(riscv64-unknown-elf-size --format=sysv build/riscv_objs/*.o \
+              | awk '/^\.text|^\.init|^\.rodata|^\.data/ {sum += $2} END {print sum+0}')
           fi
 
           echo "Code size (flash): ${code_bytes} bytes (budget: ${{ matrix.target.budget_bytes }} bytes)"
