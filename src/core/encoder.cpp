@@ -3,7 +3,11 @@
 #include "csstv_internal.h"
 #include "csstv_mode_driver.h"
  
+#if defined(__AVR__) || defined(__riscv)
 #include <string.h>
+#else
+#include <string.h>
+#endif
  
 using csstv::EncoderStage;
 using csstv::EncoderState;

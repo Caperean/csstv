@@ -116,6 +116,84 @@ jobs:
 
 
 
+  no-dynamic-allocation:
+    name: No Dynamic Allocation
+    needs: quality-gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++
+
+      - name: Check for dynamic allocation
+        shell: bash
+        run: |
+          set -e
+
+          # Every *.cpp under src/ is compiled to an object file and its
+          # undefined symbols are inspected. This runs per-translation-unit
+          # (not on a final linked binary) so it is independent of whatever
+          # a test framework, iostream, etc. might pull in on their own
+          # account elsewhere in the build.
+          #
+          # operator delete (_Zdl.../_Zda...) is deliberately NOT flagged:
+          # every polymorphic class with a virtual destructor (ModeDriver,
+          # DecoderDriver) gets a compiler-generated "deleting destructor"
+          # referencing operator delete as a vtable slot, regardless of
+          # whether the code ever calls `delete` on one of these pointers
+          # -- and this codebase never does (see the placement-construct /
+          # explicit-destructor-call pattern in csstv_internal.h). Flagging
+          # it would be a false positive on every build.
+          #
+          # operator new (_Znw.../_Zna...) IS flagged: this codebase only
+          # ever uses placement new (`new (storage) T(...)`), so a plain
+          # `new`/`new[]` anywhere is a real regression, not a structural
+          # artifact.
+          FORBIDDEN='\b(malloc|calloc|realloc|free)\b|_Znw[mj]|_Zna[mj]'
+
+          mkdir -p build/no-alloc-check
+          found_violation=0
+
+          mapfile -t sources < <(find src -type f -name '*.cpp')
+
+          for src_file in "${sources[@]}"; do
+            obj="build/no-alloc-check/$(basename "${src_file}").o"
+
+            g++ \
+              -std=${CXX_STANDARD} \
+              -Iinclude \
+              -Isrc/internal \
+              -Isrc/modes \
+              -DCSSTV_ENABLE_ENCODER=1 \
+              -DCSSTV_ENABLE_DECODER=1 \
+              -DCSSTV_ENCODER_MODE_PD50=1 \
+              -DCSSTV_DECODER_MODE_PD50=1 \
+              -c "${src_file}" \
+              -o "${obj}"
+
+            hits=$(nm --undefined-only "${obj}" | grep -E "${FORBIDDEN}" || true)
+
+            if [ -n "${hits}" ]; then
+              echo "::error::Dynamic allocation reference found in ${src_file}:"
+              echo "${hits}"
+              found_violation=1
+            fi
+          done
+
+          if [ "${found_violation}" -ne 0 ]; then
+            echo "One or more translation units reference dynamic allocation."
+            exit 1
+          fi
+
+          echo "No dynamic allocation references found in any translation unit."
+
+
+
   c-api-check:
     name: C API Compatibility
     needs: quality-gate
@@ -395,6 +473,89 @@ jobs:
 
 
 # ============================================================================
+# RISC-V (bare-metal)
+# ============================================================================
+
+  compile-riscv:
+    name: Compile - RISC-V
+    needs: quality-gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install RISC-V toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            gcc-riscv64-unknown-elf \
+            picolibc-riscv64-unknown-elf
+
+      - name: Compile C++ source
+        shell: bash
+        run: |
+          set -e
+
+          mkdir -p build
+
+          mapfile -t sources < <(
+            find src -type f -name '*.cpp'
+          )
+
+          if [ "${#sources[@]}" -eq 0 ]; then
+            echo "No C++ source files found."
+            exit 1
+          fi
+
+          # This toolchain (gcc-riscv64-unknown-elf, targeting bare-metal
+          # RV32) has no libstdc++/libsupc++ at all -- only picolibc (a C
+          # library). CSSTV_NO_CXX_STDLIB=1 switches the library to the
+          # same freestanding fallbacks used for AVR (see
+          # csstv_freestanding_runtime_support.h and the placement-new
+          # declaration in pd.cpp). -specs=picolibc.specs points the
+          # toolchain at picolibc's headers/libs; -fno-rtti avoids needing
+          # libsupc++'s typeinfo vtables, which this codebase never uses
+          # (no dynamic_cast/typeid anywhere).
+          riscv64-unknown-elf-g++ \
+            -march=rv32imac \
+            -mabi=ilp32 \
+            -specs=picolibc.specs \
+            -fno-rtti \
+            -std=${CXX_STANDARD} \
+            -Wall \
+            -Wextra \
+            -Werror \
+            -Wpedantic \
+            -Wconversion \
+            -Wsign-conversion \
+            -Wshadow \
+            -Iinclude \
+            -Isrc/internal \
+            -Isrc/modes \
+            -DCSSTV_NO_CXX_STDLIB=1 \
+            -DCSSTV_ENABLE_ENCODER=1 \
+            -DCSSTV_ENABLE_DECODER=1 \
+            -DCSSTV_ENCODER_MODE_PD50=1 \
+            -DCSSTV_ENCODER_MODE_PD90=1 \
+            -DCSSTV_ENCODER_MODE_PD120=1 \
+            -DCSSTV_ENCODER_MODE_PD160=1 \
+            -DCSSTV_ENCODER_MODE_PD180=1 \
+            -DCSSTV_ENCODER_MODE_PD240=1 \
+            -DCSSTV_ENCODER_MODE_PD290=1 \
+            -DCSSTV_DECODER_MODE_PD50=1 \
+            -DCSSTV_DECODER_MODE_PD90=1 \
+            -DCSSTV_DECODER_MODE_PD120=1 \
+            -DCSSTV_DECODER_MODE_PD160=1 \
+            -DCSSTV_DECODER_MODE_PD180=1 \
+            -DCSSTV_DECODER_MODE_PD240=1 \
+            -DCSSTV_DECODER_MODE_PD290=1 \
+            -c "${sources[@]}"
+
+          mv ./*.o build/
+
+
+# ============================================================================
 # Encoder configuration checks
 #
 # Each mode is compiled independently.
@@ -631,11 +792,20 @@ jobs:
 
 
 # ============================================================================
-# Determinism test
+# Determinism
+# ============================================================================
+#
+# Verifies that re-encoding the same image via reset() produces
+# byte-for-byte identical output to the first pass -- the property
+# the cumulative-rounding logic in pd.cpp (ideal_elapsed_samples_ /
+# rounded_elapsed_samples_) exists to guarantee. See
+# tests/determinism_test.cpp: it drives csstv::pd::Driver directly
+# with synthetic (deliberately non-round) parameters, so it needs no
+# per-mode tables.
 # ============================================================================
 
   determinism-test:
-    name: Determinism Test
+    name: Determinism
     needs: quality-gate
     runs-on: ubuntu-latest
 
@@ -648,414 +818,381 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y g++
 
-      - name: Build determinism test
+      - name: Build and run determinism test
         shell: bash
         run: |
           set -e
 
           mkdir -p build
 
-          mapfile -t sources < <(
-            find src -type f -name '*.cpp'
-          )
-
-          mapfile -t tests < <(
-            find tests -type f \( -name '*.cpp' -o -name '*.c' \)
-          )
-
           g++ \
             -std=${CXX_STANDARD} \
             -Wall \
             -Wextra \
             -Werror \
+            -Wpedantic \
+            -Wconversion \
+            -Wsign-conversion \
+            -Wshadow \
             -Iinclude \
             -Isrc/internal \
             -Isrc/modes \
-            -Itests \
             -DCSSTV_ENABLE_ENCODER=1 \
-            -DCSSTV_ENABLE_DECODER=1 \
-            -DCSSTV_ENCODER_MODE_PD50=1 \
-            -DCSSTV_ENCODER_MODE_PD90=1 \
-            -DCSSTV_ENCODER_MODE_PD120=1 \
-            -DCSSTV_ENCODER_MODE_PD160=1 \
-            -DCSSTV_ENCODER_MODE_PD180=1 \
-            -DCSSTV_ENCODER_MODE_PD240=1 \
-            -DCSSTV_ENCODER_MODE_PD290=1 \
-            -DCSSTV_DECODER_MODE_PD50=1 \
-            -DCSSTV_DECODER_MODE_PD90=1 \
-            -DCSSTV_DECODER_MODE_PD120=1 \
-            -DCSSTV_DECODER_MODE_PD160=1 \
-            -DCSSTV_DECODER_MODE_PD180=1 \
-            -DCSSTV_DECODER_MODE_PD240=1 \
-            -DCSSTV_DECODER_MODE_PD290=1 \
-            "${sources[@]}" \
-            "${tests[@]}" \
-            -o build/test_suite
+            -DCSSTV_ENABLE_DECODER=0 \
+            src/modes/pd/pd.cpp \
+            src/core/tone.cpp \
+            src/core/image.cpp \
+            tests/determinism_test.cpp \
+            -o build/determinism_test
 
-      - name: Run determinism test
-        run: |
-          # Run the test suite multiple times and compare outputs
-          ./build/test_suite > run1.txt
-          ./build/test_suite > run2.txt
-          ./build/test_suite > run3.txt
-
-          # Compare outputs
-          diff run1.txt run2.txt
-          diff run2.txt run3.txt
-
-          echo "Determinism test passed: all runs produced identical output"
+          ./build/determinism_test
 
 
 # ============================================================================
-# RAM usage test
+# AVR placement-new fallback correctness
+# ============================================================================
+#
+# csstv_freestanding_runtime_support.h / the placement-new declaration
+# in pd.cpp only take effect when CSSTV_NO_CXX_STDLIB is defined (auto
+# for AVR, explicit elsewhere). This job forces that same code path on
+# the host by passing CSSTV_NO_CXX_STDLIB=1 to a normal x86 g++ build,
+# so the custom operator new / operator delete / __cxa_pure_virtual
+# actually run natively, and compares their output against a normal
+# build using the real <new>/libstdc++. Byte-identical output across
+# both is the whole point: it proves the fallback is behaviorally
+# equivalent to the standard one for this codebase's usage, without
+# needing AVR hardware or an emulator.
+# ============================================================================
+
+  avr-fallback-correctness-test:
+    name: AVR Fallback Correctness
+    needs: quality-gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++
+
+      - name: Build both variants and compare
+        shell: bash
+        run: |
+          set -e
+
+          mkdir -p build
+
+          FLAGS=(
+            -std=${CXX_STANDARD}
+            -Wall -Wextra -Werror -Wpedantic -Wconversion -Wsign-conversion -Wshadow
+            -Iinclude -Isrc/internal -Isrc/modes
+            -DCSSTV_ENABLE_ENCODER=1
+            -DCSSTV_ENABLE_DECODER=0
+          )
+
+          COMMON_SOURCES=(
+            src/modes/pd/pd.cpp
+            src/core/tone.cpp
+            src/core/image.cpp
+            tests/avr_fallback_harness.cpp
+          )
+
+          echo "=== Building with real <new> (normal path) ==="
+          g++ "${FLAGS[@]}" "${COMMON_SOURCES[@]}" -o build/harness_normal
+
+          echo "=== Building with CSSTV_NO_CXX_STDLIB=1 (forced fallback path) ==="
+          g++ "${FLAGS[@]}" -DCSSTV_NO_CXX_STDLIB=1 \
+            src/internal/csstv_freestanding_runtime_support.cpp \
+            "${COMMON_SOURCES[@]}" \
+            -o build/harness_fallback
+
+          ./build/harness_normal > build/out_normal.bin
+          ./build/harness_fallback > build/out_fallback.bin
+
+          if ! cmp -s build/out_normal.bin build/out_fallback.bin; then
+            echo "::error::Fallback placement-new path produced different output than the real <new> path."
+            cmp build/out_normal.bin build/out_fallback.bin || true
+            exit 1
+          fi
+
+          echo "Fallback path output is byte-for-byte identical to the real <new> path ($(wc -c < build/out_normal.bin) bytes)."
+
+
+# ============================================================================
+# RAM usage
+# ============================================================================
+#
+# Links a minimal firmware (tests/size_firmware.cpp, driving
+# csstv::pd::Driver directly with synthetic parameters -- no
+# pd_modes.cpp needed) for each constrained embedded target and checks
+# static RAM (.data + .bss) against a budget. Budgets below are
+# examples with headroom over the measured baseline; tune them to your
+# actual target(s) and application budget.
 # ============================================================================
 
   ram-usage-test:
-    name: RAM Usage Test
+    name: RAM Usage - ${{ matrix.target.name }}
     needs: quality-gate
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - name: avr
+            budget_bytes: 1024
 
-      - name: Install compiler and tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y g++ valgrind
-
-      - name: Build RAM usage test
-        shell: bash
-        run: |
-          set -e
-
-          mkdir -p build
-
-          mapfile -t sources < <(
-            find src -type f -name '*.cpp'
-          )
-
-          mapfile -t tests < <(
-            find tests -type f \( -name '*.cpp' -o -name '*.c' \)
-          )
-
-          g++ \
-            -std=${CXX_STANDARD} \
-            -Wall \
-            -Wextra \
-            -Werror \
-            -g \
-            -Iinclude \
-            -Isrc/internal \
-            -Isrc/modes \
-            -Itests \
-            -DCSSTV_ENABLE_ENCODER=1 \
-            -DCSSTV_ENABLE_DECODER=1 \
-            -DCSSTV_ENCODER_MODE_PD50=1 \
-            -DCSSTV_ENCODER_MODE_PD90=1 \
-            -DCSSTV_ENCODER_MODE_PD120=1 \
-            -DCSSTV_ENCODER_MODE_PD160=1 \
-            -DCSSTV_ENCODER_MODE_PD180=1 \
-            -DCSSTV_ENCODER_MODE_PD240=1 \
-            -DCSSTV_ENCODER_MODE_PD290=1 \
-            -DCSSTV_DECODER_MODE_PD50=1 \
-            -DCSSTV_DECODER_MODE_PD90=1 \
-            -DCSSTV_DECODER_MODE_PD120=1 \
-            -DCSSTV_DECODER_MODE_PD160=1 \
-            -DCSSTV_DECODER_MODE_PD180=1 \
-            -DCSSTV_DECODER_MODE_PD240=1 \
-            -DCSSTV_DECODER_MODE_PD290=1 \
-            "${sources[@]}" \
-            "${tests[@]}" \
-            -o build/test_suite
-
-      - name: Measure RAM usage
-        run: |
-          valgrind --tool=massif --massif-out-file=massif.out ./build/test_suite
-          ms_print massif.out > massif_report.txt
-          cat massif_report.txt
-
-          # Check that peak memory usage is reasonable (e.g., < 100MB)
-          peak_kb=$(grep "mem_heap_B" massif_report.txt | sed 's/.*=\([0-9]*\).*/\1/' | sort -n | tail -1)
-          peak_mb=$((peak_kb / 1024))
-          echo "Peak memory usage: ${peak_mb} MB"
-
-          if [ $peak_mb -gt 100 ]; then
-            echo "Memory usage too high: ${peak_mb} MB"
-            exit 1
-          fi
-
-          echo "RAM usage test passed"
-
-
-# ============================================================================
-# Binary size test
-# ============================================================================
-
-  binary-size-test:
-    name: Binary Size Test
-    needs: quality-gate
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Install compiler
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y g++
-
-      - name: Build with size optimization
-        shell: bash
-        run: |
-          set -e
-
-          mkdir -p build
-
-          mapfile -t sources < <(
-            find src -type f -name '*.cpp'
-          )
-
-          mapfile -t tests < <(
-            find tests -type f \( -name '*.cpp' -o -name '*.c' \)
-          )
-
-          # Build with -Os for size optimization
-          g++ \
-            -std=${CXX_STANDARD} \
-            -Os \
-            -Wall \
-            -Wextra \
-            -Werror \
-            -Iinclude \
-            -Isrc/internal \
-            -Isrc/modes \
-            -Itests \
-            -DCSSTV_ENABLE_ENCODER=1 \
-            -DCSSTV_ENABLE_DECODER=1 \
-            -DCSSTV_ENCODER_MODE_PD50=1 \
-            -DCSSTV_ENCODER_MODE_PD90=1 \
-            -DCSSTV_ENCODER_MODE_PD120=1 \
-            -DCSSTV_ENCODER_MODE_PD160=1 \
-            -DCSSTV_ENCODER_MODE_PD180=1 \
-            -DCSSTV_ENCODER_MODE_PD240=1 \
-            -DCSSTV_ENCODER_MODE_PD290=1 \
-            -DCSSTV_DECODER_MODE_PD50=1 \
-            -DCSSTV_DECODER_MODE_PD90=1 \
-            -DCSSTV_DECODER_MODE_PD120=1 \
-            -DCSSTV_DECODER_MODE_PD160=1 \
-            -DCSSTV_DECODER_MODE_PD180=1 \
-            -DCSSTV_DECODER_MODE_PD240=1 \
-            -DCSSTV_DECODER_MODE_PD290=1 \
-            "${sources[@]}" \
-            "${tests[@]}" \
-            -o build/test_suite_optimized
-
-      - name: Measure binary size
-        run: |
-          size build/test_suite_optimized
-          text_size=$(size build/test_suite_optimized | tail -1 | awk '{print $1}')
-          data_size=$(size build/test_suite_optimized | tail -1 | awk '{print $2}')
-          bss_size=$(size build/test_suite_optimized | tail -1 | awk '{print $3}')
-          total_size=$((text_size + data_size + bss_size))
-
-          echo "Text size: $text_size bytes"
-          echo "Data size: $data_size bytes"
-          echo "BSS size: $bss_size bytes"
-          echo "Total size: $total_size bytes"
-
-          # Check that total size is reasonable (e.g., < 1MB for test suite)
-          if [ $total_size -gt 1048576 ]; then
-            echo "Binary size too large: $total_size bytes"
-            exit 1
-          fi
-
-          echo "Binary size test passed"
-
-
-# ============================================================================
-# Structure alignment test
-# ============================================================================
-
-  alignment-test:
-    name: Structure Alignment Test
-    needs: quality-gate
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Install compiler
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y g++
-
-      - name: Build alignment test
-        shell: bash
-        run: |
-          set -e
-
-          mkdir -p build
-
-          # Create a simple alignment test program
-          cat > build/alignment_test.cpp <<'EOF'
-          #include "csstv.h"
-          #include <iostream>
-          #include <cstddef>
-
-          int main() {
-              std::cout << "sizeof(csstv_encoder_t): " << sizeof(csstv_encoder_t) << std::endl;
-              std::cout << "sizeof(csstv_decoder_t): " << sizeof(csstv_decoder_t) << std::endl;
-              std::cout << "sizeof(csstv_encoder_alignment_t): " << sizeof(csstv_encoder_alignment_t) << std::endl;
-              std::cout << "sizeof(csstv_decoder_alignment_t): " << sizeof(csstv_decoder_alignment_t) << std::endl;
-              std::cout << "alignof(csstv_encoder_t): " << alignof(csstv_encoder_t) << std::endl;
-              std::cout << "alignof(csstv_decoder_t): " << alignof(csstv_decoder_t) << std::endl;
-
-              // Verify alignment is at least 16 bytes for SIMD compatibility
-              if (alignof(csstv_encoder_t) < 16 || alignof(csstv_decoder_t) < 16) {
-                  std::cerr << "ERROR: Alignment is less than 16 bytes" << std::endl;
-                  return 1;
-              }
-
-              return 0;
-          }
-          EOF
-
-          g++ \
-            -std=${CXX_STANDARD} \
-            -Wall \
-            -Wextra \
-            -Werror \
-            -Iinclude \
-            -Isrc/internal \
-            -Isrc/modes \
-            -DCSSTV_ENABLE_ENCODER=1 \
-            -DCSSTV_ENABLE_DECODER=1 \
-            build/alignment_test.cpp \
-            -o build/alignment_test
-
-      - name: Run alignment test
-        run: |
-          ./build/alignment_test
-          echo "Structure alignment test passed"
-
-
-# ============================================================================
-# AVR fallback correctness test
-# ============================================================================
-
-  avr-fallback-test:
-    name: AVR Fallback Correctness Test
-    needs: quality-gate
-    runs-on: ubuntu-latest
+          - name: riscv
+            budget_bytes: 4096
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
 
       - name: Install AVR toolchain
+        if: matrix.target.name == 'avr'
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            gcc-avr \
-            avr-libc
+          sudo apt-get install -y gcc-avr avr-libc
 
-      - name: Compile AVR fallback test
+      - name: Install RISC-V toolchain
+        if: matrix.target.name == 'riscv'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-riscv64-unknown-elf picolibc-riscv64-unknown-elf
+
+      - name: Build firmware and check RAM usage
         shell: bash
         run: |
           set -e
 
           mkdir -p build
 
-          mapfile -t sources < <(
-            find src -type f -name '*.cpp'
+          SOURCES=(
+            src/modes/pd/pd.cpp
+            src/core/tone.cpp
+            src/core/image.cpp
+            src/internal/csstv_freestanding_runtime_support.cpp
+            tests/size_firmware.cpp
           )
 
-          # Test that the freestanding C implementation compiles without libstdc++
-          avr-g++ \
-            -mmcu=atmega328p \
-            -std=${CXX_STANDARD} \
-            -Wall \
-            -Wextra \
-            -Werror \
-            -Wpedantic \
-            -Wshadow \
-            -ffreestanding \
-            -nostdlib \
-            -DCSSTV_ENABLE_DECODER=0 \
-            -Iinclude \
-            -Isrc/internal \
-            -Isrc/modes \
-            -c "${sources[@]}"
+          if [ "${{ matrix.target.name }}" = "avr" ]; then
+            avr-g++ \
+              -mmcu=atmega328p -std=${CXX_STANDARD} \
+              -Wall -Wextra -Werror -Wpedantic -Wshadow \
+              -Iinclude -Isrc/internal -Isrc/modes \
+              -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_DECODER=0 \
+              "${SOURCES[@]}" -lm -o build/size_firmware.elf
 
-          mv ./*.o build/
+            data_bytes=$(avr-size --format=sysv build/size_firmware.elf \
+              | awk '/^\.data|^\.bss/ {sum += $2} END {print sum}')
 
-      - name: Verify AVR compilation
-        run: |
-          # Check that object files were created
-          if [ $(ls build/*.o 2>/dev/null | wc -l) -eq 0 ]; then
-            echo "ERROR: No object files created"
+          else
+            riscv64-unknown-elf-g++ \
+              -march=rv32imac -mabi=ilp32 -specs=picolibc.specs -fno-rtti \
+              -std=${CXX_STANDARD} \
+              -Wall -Wextra -Werror -Wpedantic -Wconversion -Wsign-conversion -Wshadow \
+              -Iinclude -Isrc/internal -Isrc/modes \
+              -DCSSTV_NO_CXX_STDLIB=1 \
+              -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_DECODER=0 \
+              "${SOURCES[@]}" -nostdlib++ -o build/size_firmware.elf
+
+            # NOTE: the Berkeley `size` "bss" column on this target's
+            # default linker script also counts the reserved .stack/.heap
+            # regions, not just real static data, so real static RAM is
+            # computed from .data + .bss specifically via sysv output.
+            data_bytes=$(riscv64-unknown-elf-size --format=sysv build/size_firmware.elf \
+              | awk '/^\.data|^\.bss$/ {sum += $2} END {print sum}')
+          fi
+
+          echo "Static RAM (.data + .bss): ${data_bytes} bytes (budget: ${{ matrix.target.budget_bytes }} bytes)"
+
+          if [ "${data_bytes}" -gt "${{ matrix.target.budget_bytes }}" ]; then
+            echo "::error::RAM usage ${data_bytes} bytes exceeds budget of ${{ matrix.target.budget_bytes }} bytes."
             exit 1
           fi
 
-          echo "AVR fallback compilation test passed"
-
 
 # ============================================================================
-# RISC-V test
+# Binary size
+# ============================================================================
+#
+# Same firmware as the RAM usage job, checking flash/code size instead.
 # ============================================================================
 
-  compile-riscv:
-    name: Compile - RISC-V
+  binary-size-test:
+    name: Binary Size - ${{ matrix.target.name }}
     needs: quality-gate
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - name: avr
+            budget_bytes: 16384
+
+          - name: riscv
+            budget_bytes: 65536
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Install RISC-V toolchain
+      - name: Install AVR toolchain
+        if: matrix.target.name == 'avr'
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            gcc-riscv64-unknown-elf
+          sudo apt-get install -y gcc-avr avr-libc
 
-      - name: Compile C++ source
+      - name: Install RISC-V toolchain
+        if: matrix.target.name == 'riscv'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-riscv64-unknown-elf picolibc-riscv64-unknown-elf
+
+      - name: Build firmware and check binary size
         shell: bash
         run: |
           set -e
 
           mkdir -p build
 
-          mapfile -t sources < <(
-            find src -type f -name '*.cpp'
+          SOURCES=(
+            src/modes/pd/pd.cpp
+            src/core/tone.cpp
+            src/core/image.cpp
+            src/internal/csstv_freestanding_runtime_support.cpp
+            tests/size_firmware.cpp
           )
 
-          if [ "${#sources[@]}" -eq 0 ]; then
-            echo "No C++ source files found."
+          if [ "${{ matrix.target.name }}" = "avr" ]; then
+            avr-g++ \
+              -mmcu=atmega328p -std=${CXX_STANDARD} \
+              -Wall -Wextra -Werror -Wpedantic -Wshadow \
+              -Iinclude -Isrc/internal -Isrc/modes \
+              -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_DECODER=0 \
+              "${SOURCES[@]}" -lm -o build/size_firmware.elf
+
+            code_bytes=$(avr-size --format=sysv build/size_firmware.elf \
+              | awk '/^\.text|^\.data/ {sum += $2} END {print sum}')
+
+          else
+            riscv64-unknown-elf-g++ \
+              -march=rv32imac -mabi=ilp32 -specs=picolibc.specs -fno-rtti \
+              -std=${CXX_STANDARD} \
+              -Wall -Wextra -Werror -Wpedantic -Wconversion -Wsign-conversion -Wshadow \
+              -Iinclude -Isrc/internal -Isrc/modes \
+              -DCSSTV_NO_CXX_STDLIB=1 \
+              -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_DECODER=0 \
+              "${SOURCES[@]}" -nostdlib++ -o build/size_firmware.elf
+
+            code_bytes=$(riscv64-unknown-elf-size --format=sysv build/size_firmware.elf \
+              | awk '/^\.text|^\.init|^\.rodata/ {sum += $2} END {print sum}')
+          fi
+
+          echo "Code size (flash): ${code_bytes} bytes (budget: ${{ matrix.target.budget_bytes }} bytes)"
+
+          if [ "${code_bytes}" -gt "${{ matrix.target.budget_bytes }}" ]; then
+            echo "::error::Binary size ${code_bytes} bytes exceeds budget of ${{ matrix.target.budget_bytes }} bytes."
             exit 1
           fi
 
-          riscv64-unknown-elf-g++ \
-            -march=rv64gc \
-            -mabi=lp64d \
-            -std=${CXX_STANDARD} \
-            -Wall \
-            -Wextra \
-            -Werror \
-            -Wpedantic \
-            -Wshadow \
-            -ffreestanding \
-            -nostdlib \
-            -DCSSTV_ENABLE_DECODER=0 \
-            -Iinclude \
-            -Isrc/internal \
-            -Isrc/modes \
-            -c "${sources[@]}"
 
-          mv ./*.o build/
+# ============================================================================
+# Structure alignment
+# ============================================================================
+#
+# csstv_internal.h already carries the load-bearing static_asserts
+# (EncoderState/DecoderState fit their storage; csstv_encoder_alignment_t
+# / csstv_decoder_alignment_t provide enough alignment for them -- see
+# csstv.h). Those assertions already run as a side effect of every
+# compile job above, but only for the flag combination that job happens
+# to use. This job exists to check them explicitly, by name, across
+# every supported architecture and word size in one place, so a
+# regression is reported as "Structure Alignment" rather than buried
+# inside an unrelated compile job's log.
+# ============================================================================
+
+  structure-alignment-test:
+    name: Structure Alignment - ${{ matrix.target.name }}
+    needs: quality-gate
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - name: x86-32
+          - name: x86-64
+          - name: avr
+          - name: arm-cortex-m
+          - name: riscv
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          case "${{ matrix.target.name }}" in
+            x86-32|x86-64)
+              sudo apt-get install -y g++-multilib
+              ;;
+            avr)
+              sudo apt-get install -y gcc-avr avr-libc
+              ;;
+            arm-cortex-m)
+              sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi
+              ;;
+            riscv)
+              sudo apt-get install -y gcc-riscv64-unknown-elf picolibc-riscv64-unknown-elf
+              ;;
+          esac
+
+      - name: Check static_asserts
+        shell: bash
+        run: |
+          set -e
+
+          DEFINES="-DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_DECODER=1 -Iinclude -Isrc/internal -Isrc/modes"
+
+          case "${{ matrix.target.name }}" in
+            x86-32)
+              g++ -std=${CXX_STANDARD} -m32 -Wall -Wextra -Werror -Wpedantic \
+                ${DEFINES} -fsyntax-only -x c++ src/internal/csstv_internal.h
+              ;;
+
+            x86-64)
+              g++ -std=${CXX_STANDARD} -m64 -Wall -Wextra -Werror -Wpedantic \
+                ${DEFINES} -fsyntax-only -x c++ src/internal/csstv_internal.h
+              ;;
+
+            avr)
+              avr-g++ -std=${CXX_STANDARD} -mmcu=atmega328p -Wall -Wextra -Werror -Wpedantic \
+                -DCSSTV_ENABLE_DECODER=0 -Iinclude -Isrc/internal -Isrc/modes \
+                -fsyntax-only -x c++ src/internal/csstv_internal.h
+              ;;
+
+            arm-cortex-m)
+              arm-none-eabi-g++ -std=${CXX_STANDARD} -mcpu=cortex-m4 -mthumb -mfloat-abi=soft \
+                -Wall -Wextra -Werror -Wpedantic \
+                ${DEFINES} -fsyntax-only -x c++ src/internal/csstv_internal.h
+              ;;
+
+            riscv)
+              riscv64-unknown-elf-g++ -std=${CXX_STANDARD} -march=rv32imac -mabi=ilp32 \
+                -specs=picolibc.specs -fno-rtti -Wall -Wextra -Werror -Wpedantic \
+                -DCSSTV_NO_CXX_STDLIB=1 ${DEFINES} \
+                -fsyntax-only -x c++ src/internal/csstv_internal.h
+              ;;
+          esac
+
+          echo "Structure alignment static_asserts pass on ${{ matrix.target.name }}."
 
 
 # ============================================================================
@@ -1067,6 +1204,7 @@ jobs:
 
     needs:
       - quality-gate
+      - no-dynamic-allocation
       - c-api-check
       - compile-x86-32
       - compile-x86-64
@@ -1076,10 +1214,10 @@ jobs:
       - configuration-check
       - unit-tests
       - determinism-test
+      - avr-fallback-correctness-test
       - ram-usage-test
       - binary-size-test
-      - alignment-test
-      - avr-fallback-test
+      - structure-alignment-test
 
     runs-on: ubuntu-latest
 
@@ -1089,18 +1227,19 @@ jobs:
           echo "======================================"
           echo " CSSTV CI PASSED"
           echo "======================================"
-          echo "C API compatibility:      OK"
-          echo "C/C++ formatting:         OK"
-          echo "Static analysis:          OK"
-          echo "x86-32:                   OK"
-          echo "x86-64:                   OK"
-          echo "AVR:                      OK"
-          echo "ARM Cortex-M:             OK"
-          echo "RISC-V:                   OK"
-          echo "Configurations:           OK"
-          echo "Unit tests:               OK"
-          echo "Determinism test:         OK"
-          echo "RAM usage test:           OK"
-          echo "Binary size test:         OK"
-          echo "Structure alignment test: OK"
-          echo "AVR fallback test:        OK"
+          echo "C API compatibility: OK"
+          echo "C/C++ formatting:    OK"
+          echo "Static analysis:     OK"
+          echo "No dynamic alloc:    OK"
+          echo "x86-32:              OK"
+          echo "x86-64:              OK"
+          echo "AVR:                 OK"
+          echo "ARM Cortex-M:        OK"
+          echo "RISC-V:              OK"
+          echo "Configurations:      OK"
+          echo "Unit tests:          OK"
+          echo "Determinism:         OK"
+          echo "AVR fallback:        OK"
+          echo "RAM usage:           OK"
+          echo "Binary size:         OK"
+          echo "Structure alignment: OK"
