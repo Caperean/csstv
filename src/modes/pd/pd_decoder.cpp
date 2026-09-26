@@ -2,10 +2,18 @@
 
 #if CSSTV_ENABLE_DECODER
 
+#if defined(__AVR__) || defined(__riscv)
+#include <math.h>
+#include <string.h>
+inline void *operator new(size_t, void *ptr) noexcept { return ptr; }
+#define min(a, b) ((a) < (b) ? (a) : (b))
+#define max(a, b) ((a) > (b) ? (a) : (b))
+#else
 #include <algorithm>
 #include <cmath>
 #include <cstring>
 #include <new>
+#endif
 
 namespace csstv {
 namespace pd {

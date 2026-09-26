@@ -7,8 +7,8 @@
 
 #include "csstv_decoder_driver.h"
 
-#include <cstddef>
-#include <cstdint>
+#include <stddef.h>
+#include <stdint.h>
 
 namespace csstv {
 namespace pd {
