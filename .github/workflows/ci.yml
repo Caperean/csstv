@@ -1019,8 +1019,14 @@ jobs:
       - name: Install RISC-V toolchain
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            gcc-riscv64-linux-gnu
+          sudo apt-get install -y wget
+          
+          # Download and install RISC-V toolchain from SiFive
+          wget https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2024.10.21/riscv64-unknown-linux-gnu-gcc-14.2.0-x86_64-linux.tar.xz
+          sudo tar -xf riscv64-unknown-linux-gnu-gcc-14.2.0-x86_64-linux.tar.xz -C /opt
+          
+          # Add to PATH
+          echo "/opt/riscv/bin" >> $GITHUB_PATH
 
       - name: Compile C++ source
         shell: bash
@@ -1038,7 +1044,7 @@ jobs:
             exit 1
           fi
 
-          riscv64-linux-gnu-g++ \
+          riscv64-unknown-linux-gnu-g++ \
             -march=rv64gc \
             -mabi=lp64d \
             -std=${CXX_STANDARD} \
