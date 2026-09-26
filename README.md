@@ -20,6 +20,8 @@ PD290
 Encoding accepts GRAY8, RGB888, BGR888, and RGB565 input. Decoding writes
 caller-owned RGB888 output buffers. 
 
+Additional mode families may be added in future releases.
+
 ##Procesor architectures:
 CSSTV is written and tested for following procesor architectures:
 
@@ -31,4 +33,4 @@ AVR
 
 ARM Cortex-M
 
-Additional mode families may be added in future releases.
+
