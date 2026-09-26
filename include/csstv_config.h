@@ -3,22 +3,10 @@
 
 /*
  * ============================================================================
- * Core
- * ============================================================================
- */
-
-#ifndef CSSTV_ENABLE_ENCODER
-#define CSSTV_ENABLE_ENCODER 1
-#endif
-
-#ifndef CSSTV_ENABLE_DECODER
-#define CSSTV_ENABLE_DECODER 1
-#endif
-
-
-/*
- * ============================================================================
  * Encoder modes
+ *
+ * Enabling any CSSTV_ENCODER_MODE_* automatically enables the encoder
+ * (CSSTV_ENABLE_ENCODER). You do not need to set both.
  * ============================================================================
  */
 
@@ -50,10 +38,24 @@
 #define CSSTV_ENCODER_MODE_PD290 0
 #endif
 
+#if CSSTV_ENCODER_MODE_PD50 || CSSTV_ENCODER_MODE_PD90 || CSSTV_ENCODER_MODE_PD120 || \
+    CSSTV_ENCODER_MODE_PD160 || CSSTV_ENCODER_MODE_PD180 || CSSTV_ENCODER_MODE_PD240 || \
+    CSSTV_ENCODER_MODE_PD290
+#undef CSSTV_ENABLE_ENCODER
+#define CSSTV_ENABLE_ENCODER 1
+#endif
+
+#ifndef CSSTV_ENABLE_ENCODER
+#define CSSTV_ENABLE_ENCODER 0
+#endif
+
 
 /*
  * ============================================================================
  * Decoder modes
+ *
+ * Enabling any CSSTV_DECODER_MODE_* automatically enables the decoder
+ * (CSSTV_ENABLE_DECODER). You do not need to set both.
  * ============================================================================
  */
 
@@ -84,6 +86,19 @@
 #ifndef CSSTV_DECODER_MODE_PD290
 #define CSSTV_DECODER_MODE_PD290 0
 #endif
+
+#if CSSTV_DECODER_MODE_PD50 || CSSTV_DECODER_MODE_PD90 || CSSTV_DECODER_MODE_PD120 || \
+    CSSTV_DECODER_MODE_PD160 || CSSTV_DECODER_MODE_PD180 || CSSTV_DECODER_MODE_PD240 || \
+    CSSTV_DECODER_MODE_PD290
+#undef CSSTV_ENABLE_DECODER
+#define CSSTV_ENABLE_DECODER 1
+#endif
+
+#ifndef CSSTV_ENABLE_DECODER
+#define CSSTV_ENABLE_DECODER 0
+#endif
+
+
 /*
  * ============================================================================
  * Static encoder storage
@@ -121,4 +136,3 @@
 
 
 #endif /* CSSTV_CONFIG_H */
-
