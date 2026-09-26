@@ -1019,14 +1019,8 @@ jobs:
       - name: Install RISC-V toolchain
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget
-          
-          # Download and install RISC-V toolchain from SiFive
-          wget https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2024.10.21/riscv64-unknown-linux-gnu-gcc-14.2.0-x86_64-linux.tar.xz
-          sudo tar -xf riscv64-unknown-linux-gnu-gcc-14.2.0-x86_64-linux.tar.xz -C /opt
-          
-          # Add to PATH
-          echo "/opt/riscv/bin" >> $GITHUB_PATH
+          sudo apt-get install -y \
+            gcc-riscv64-unknown-elf
 
       - name: Compile C++ source
         shell: bash
@@ -1044,7 +1038,7 @@ jobs:
             exit 1
           fi
 
-          riscv64-unknown-linux-gnu-g++ \
+          riscv64-unknown-elf-g++ \
             -march=rv64gc \
             -mabi=lp64d \
             -std=${CXX_STANDARD} \
@@ -1052,28 +1046,13 @@ jobs:
             -Wextra \
             -Werror \
             -Wpedantic \
-            -Wconversion \
-            -Wsign-conversion \
             -Wshadow \
+            -ffreestanding \
+            -nostdlib \
+            -DCSSTV_ENABLE_DECODER=0 \
             -Iinclude \
             -Isrc/internal \
             -Isrc/modes \
-            -DCSSTV_ENABLE_ENCODER=1 \
-            -DCSSTV_ENABLE_DECODER=1 \
-            -DCSSTV_ENCODER_MODE_PD50=1 \
-            -DCSSTV_ENCODER_MODE_PD90=1 \
-            -DCSSTV_ENCODER_MODE_PD120=1 \
-            -DCSSTV_ENCODER_MODE_PD160=1 \
-            -DCSSTV_ENCODER_MODE_PD180=1 \
-            -DCSSTV_ENCODER_MODE_PD240=1 \
-            -DCSSTV_ENCODER_MODE_PD290=1 \
-            -DCSSTV_DECODER_MODE_PD50=1 \
-            -DCSSTV_DECODER_MODE_PD90=1 \
-            -DCSSTV_DECODER_MODE_PD120=1 \
-            -DCSSTV_DECODER_MODE_PD160=1 \
-            -DCSSTV_DECODER_MODE_PD180=1 \
-            -DCSSTV_DECODER_MODE_PD240=1 \
-            -DCSSTV_DECODER_MODE_PD290=1 \
             -c "${sources[@]}"
 
           mv ./*.o build/
