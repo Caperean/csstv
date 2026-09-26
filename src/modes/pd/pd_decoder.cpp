@@ -2,18 +2,30 @@
 
 #if CSSTV_ENABLE_DECODER
 
-#if defined(__AVR__) || defined(__riscv)
+#include "csstv_freestanding_runtime_support.h"
+
 #include <math.h>
 #include <string.h>
-inline void *operator new(size_t, void *ptr) noexcept { return ptr; }
-#define min(a, b) ((a) < (b) ? (a) : (b))
-#define max(a, b) ((a) > (b) ? (a) : (b))
-#else
-#include <algorithm>
-#include <cmath>
-#include <cstring>
+
+#if !CSSTV_NO_CXX_STDLIB
 #include <new>
 #endif
+
+namespace {
+
+template <typename T>
+constexpr T csstv_min(T a, T b)
+{
+    return (a < b) ? a : b;
+}
+
+template <typename T>
+constexpr T csstv_max(T a, T b)
+{
+    return (a > b) ? a : b;
+}
+
+} /* namespace */
 
 namespace csstv {
 namespace pd {
@@ -64,13 +76,13 @@ constexpr double kHilbertTaps[kHilbertOrder] = {
 
 double freq_to_level(double freq_hz)
 {
-    const double clamped = std::min(kLevelToFreqMax, std::max(kLevelToFreqMin, freq_hz));
+    const double clamped = csstv_min(kLevelToFreqMax, csstv_max(kLevelToFreqMin, freq_hz));
     return ((clamped - kLevelToFreqMin) / kLevelToFreqSpan) * 255.0;
 }
 
 uint8_t level_to_u8(double level)
 {
-    const double clamped = std::min(255.0, std::max(0.0, level + 0.5));
+    const double clamped = csstv_min(255.0, csstv_max(0.0, level + 0.5));
     return static_cast<uint8_t>(clamped);
 }
 
@@ -128,7 +140,7 @@ void DecoderDriver::build_vis_segments()
 
 void DecoderDriver::demod_reset()
 {
-    std::memset(hilbert_x_, 0, sizeof(hilbert_x_));
+    memset(hilbert_x_, 0, sizeof(hilbert_x_));
     hilbert_pos_ = 0U;
     prev_i_ = 0.0;
     prev_q_ = 0.0;
@@ -166,8 +178,8 @@ double DecoderDriver::demod_sample(csstv_sample_t sample)
     prev_i_ = i;
     prev_q_ = q;
 
-    const double dphi = std::atan2(im, re);
-    return std::fabs(dphi) * static_cast<double>(sample_rate_) / kTwoPi;
+    const double dphi = atan2(im, re);
+    return fabs(dphi) * static_cast<double>(sample_rate_) / kTwoPi;
 }
 
 void DecoderDriver::restart_scan()
@@ -186,9 +198,9 @@ void DecoderDriver::restart_scan()
     segment_freq_count_ = 0U;
     finished_ = false;
     demod_reset();
-    std::memset(y1_line_, 0, sizeof(y1_line_));
-    std::memset(cr_line_, 0, sizeof(cr_line_));
-    std::memset(cb_line_, 0, sizeof(cb_line_));
+    memset(y1_line_, 0, sizeof(y1_line_));
+    memset(cr_line_, 0, sizeof(cr_line_));
+    memset(cb_line_, 0, sizeof(cb_line_));
 }
 
 csstv_status_t DecoderDriver::init(csstv_mode_t mode, uint32_t sample_rate)
@@ -252,7 +264,7 @@ csstv_status_t DecoderDriver::set_image(const csstv_image_t &image)
     image_stride_ = stride;
     has_image_ = true;
 
-    std::memset(image_data_, 0, image_stride_ * static_cast<size_t>(params_.height));
+    memset(image_data_, 0, image_stride_ * static_cast<size_t>(params_.height));
     restart_scan();
 
     return CSSTV_OK;
@@ -441,11 +453,11 @@ csstv_status_t DecoderDriver::write(const csstv_sample_t *in, size_t count, size
             break;
         }
 
-        const size_t n = std::min(count - total, segment_remaining_samples_);
+        const size_t n = csstv_min(count - total, segment_remaining_samples_);
 
         /* Skip the Hilbert settling / tone-transition region when
          * averaging; keep at least one sample when the segment is short. */
-        const size_t skip = std::min(kHilbertDelay, segment_total_samples_ / 4U);
+        const size_t skip = csstv_min(kHilbertDelay, segment_total_samples_ / 4U);
 
         for (size_t i = 0U; i < n; ++i)
         {
@@ -511,7 +523,7 @@ csstv_status_t DecoderDriver::reset()
         return CSSTV_ERROR_NOT_READY;
     }
 
-    std::memset(image_data_, 0, image_stride_ * static_cast<size_t>(params_.height));
+    memset(image_data_, 0, image_stride_ * static_cast<size_t>(params_.height));
     restart_scan();
     return CSSTV_OK;
 }

@@ -1,21 +1,13 @@
 #include "pd.h"
 
+#include "csstv_freestanding_runtime_support.h"
+
 /*
- * <algorithm> and <new> are both unavailable when building for AVR or RISC-V:
- * there is no libstdc++ for these targets, only the freestanding
- * compiler-provided C headers (see csstv_mode_driver.h and friends).
- * <algorithm>'s std::min/std::max are used in exactly two places
- * below and are replaced with plain comparisons. Placement new's
- * `operator new(size_t, void*)` is normally *declared* in <new> (it
- * is a library facility, not a language builtin), so on AVR/RISC-V it must
- * be declared here instead.
+ * <new> is unavailable when CSSTV_NO_CXX_STDLIB is set (auto for AVR /
+ * RISC-V, or forced by CI). Placement new is declared by the
+ * freestanding support header in that case.
  */
-#if defined(__AVR__) || defined(__riscv)
-inline void *operator new(size_t, void *ptr) noexcept
-{
-    return ptr;
-}
-#else
+#if !CSSTV_NO_CXX_STDLIB
 #include <new>
 #endif
 

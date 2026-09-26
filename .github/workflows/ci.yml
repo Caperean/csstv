@@ -998,7 +998,7 @@ jobs:
               -Iinclude -Isrc/internal -Isrc/modes \
               -DCSSTV_NO_CXX_STDLIB=1 \
               -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_DECODER=0 \
-              "${SOURCES[@]}" -nostdlib++ -o build/size_firmware.elf
+              "${SOURCES[@]}" -nostdlib++ -lm -o build/size_firmware.elf
 
             # NOTE: the Berkeley `size` "bss" column on this target's
             # default linker script also counts the reserved .stack/.heap
@@ -1088,7 +1088,7 @@ jobs:
               -Iinclude -Isrc/internal -Isrc/modes \
               -DCSSTV_NO_CXX_STDLIB=1 \
               -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_DECODER=0 \
-              "${SOURCES[@]}" -nostdlib++ -o build/size_firmware.elf
+              "${SOURCES[@]}" -nostdlib++ -lm -o build/size_firmware.elf
 
             code_bytes=$(riscv64-unknown-elf-size --format=sysv build/size_firmware.elf \
               | awk '/^\.text|^\.init|^\.rodata/ {sum += $2} END {print sum}')
