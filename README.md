@@ -1,5 +1,7 @@
-# A lightweight source code SSTV encode/decode library written for embedded systems.
+# CSSTV
+A lightweight source code SSTV encode/decode library written for embedded systems.
 
+## Modes
 The current version of csstv supports the following PD modes for both
 encoding and decoding:
 
