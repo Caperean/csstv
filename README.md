@@ -35,4 +35,6 @@ AVR
 
 ARM Cortex-M
 
+RISC-V
+
 
