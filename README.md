@@ -1,4 +1,4 @@
-#A lightweight SSTV encode/decode library written for embedded systems.
+#A lightweight source code SSTV encode/decode library written for embedded systems.
 
 The current version of csstv supports the following PD modes for both
 encoding and decoding:
@@ -19,5 +19,15 @@ PD290
 
 Encoding accepts GRAY8, RGB888, BGR888, and RGB565 input. Decoding writes
 caller-owned RGB888 output buffers. 
+##Procesor architectures:
+CSSTV is written and tested for following procesor architectures:
+
+x86-32:       
+
+x86-64:              
+
+AVR      
+
+ARM Cortex-M
 
 Additional mode families may be added in future releases.
