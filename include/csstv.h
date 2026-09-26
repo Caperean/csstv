@@ -131,6 +131,12 @@ typedef struct
 
 } csstv_mode_info_t;
 
+/*
+ * Special mode value for automatic mode selection.
+ * Used with csstv_encoder_init_auto() and csstv_decoder_init_auto().
+ */
+#define CSSTV_MODE_AUTO ((csstv_mode_t)0x0000)
+
 /* ========================================================================== */
 /* PCM                                                                        */
 /* ========================================================================== */
@@ -177,6 +183,16 @@ typedef struct
 csstv_status_t csstv_encoder_init(
     csstv_encoder_t *encoder,
     csstv_mode_t mode,
+    uint32_t sample_rate
+);
+
+/*
+ * Initialize encoder with automatic mode selection based on image dimensions.
+ * Mode is selected automatically when csstv_encoder_set_image() is called.
+ * This is equivalent to calling csstv_encoder_init() with CSSTV_MODE_AUTO.
+ */
+csstv_status_t csstv_encoder_init_auto(
+    csstv_encoder_t *encoder,
     uint32_t sample_rate
 );
 
@@ -259,6 +275,24 @@ csstv_status_t csstv_decoder_init(
     csstv_decoder_t *decoder,
     csstv_mode_t mode,
     uint32_t sample_rate
+);
+
+/*
+ * Initialize decoder with automatic mode detection from VIS header.
+ * Mode is detected automatically when audio samples are processed.
+ * This is equivalent to calling csstv_decoder_init() with CSSTV_MODE_AUTO.
+ */
+csstv_status_t csstv_decoder_init_auto(
+    csstv_decoder_t *decoder,
+    uint32_t sample_rate
+);
+
+/*
+ * Get the automatically detected mode (only valid after successful decoding).
+ * Returns CSSTV_MODE_AUTO if no mode has been detected yet.
+ */
+csstv_mode_t csstv_decoder_get_detected_mode(
+    const csstv_decoder_t *decoder
 );
 
 /* ========================================================================== */
