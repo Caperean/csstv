@@ -1020,7 +1020,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            gcc-riscv64-unknown-elf
+            gcc-riscv64-linux-gnu
 
       - name: Compile C++ source
         shell: bash
@@ -1038,7 +1038,7 @@ jobs:
             exit 1
           fi
 
-          riscv64-unknown-elf-g++ \
+          riscv64-linux-gnu-g++ \
             -march=rv64gc \
             -mabi=lp64d \
             -std=${CXX_STANDARD} \
