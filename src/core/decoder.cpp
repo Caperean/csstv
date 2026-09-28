@@ -7,10 +7,6 @@
 
 #include <string.h>
 
-using csstv::DecoderStage;
-using csstv::DecoderState;
-using csstv::DecoderDriver;
-
 namespace csstv {
 
 DecoderState *decoder_state(csstv_decoder_t *decoder)
@@ -62,6 +58,10 @@ csstv_status_t csstv_decoder_init(
     csstv_mode_t mode,
     uint32_t sample_rate)
 {
+    using csstv::DecoderStage;
+    using csstv::DecoderState;
+    using csstv::DecoderDriver;
+
     if (decoder == NULL)
     {
         return CSSTV_ERROR_NULL;
@@ -130,7 +130,7 @@ csstv_mode_t csstv_decoder_get_detected_mode(
         return CSSTV_MODE_AUTO;
     }
 
-    const DecoderState *state = csstv::decoder_state(decoder);
+    const csstv::DecoderState *state = csstv::decoder_state(decoder);
     return state->mode;
 }
 
@@ -138,6 +138,9 @@ csstv_status_t csstv_decoder_set_image(
     csstv_decoder_t *decoder,
     const csstv_image_t *image)
 {
+    using csstv::DecoderStage;
+    using csstv::DecoderState;
+
     if (decoder == NULL || image == NULL)
     {
         return CSSTV_ERROR_NULL;
@@ -203,6 +206,9 @@ csstv_status_t csstv_decoder_write(
     size_t count,
     size_t *consumed)
 {
+    using csstv::DecoderStage;
+    using csstv::DecoderState;
+
     if (consumed != NULL)
     {
         *consumed = 0U;
@@ -298,6 +304,9 @@ csstv_status_t csstv_decoder_write(
 
 bool csstv_decoder_finished(const csstv_decoder_t *decoder)
 {
+    using csstv::DecoderStage;
+    using csstv::DecoderState;
+
     if (decoder == NULL)
     {
         return true;
@@ -317,6 +326,9 @@ csstv_status_t csstv_decoder_get_image(
     csstv_decoder_t *decoder,
     csstv_image_t *image)
 {
+    using csstv::DecoderStage;
+    using csstv::DecoderState;
+
     if (decoder == NULL || image == NULL)
     {
         return CSSTV_ERROR_NULL;
@@ -329,16 +341,22 @@ csstv_status_t csstv_decoder_get_image(
         return CSSTV_ERROR_NOT_INITIALIZED;
     }
 
-    if (!state->driver->finished())
+    if (state->stage != DecoderStage::kFinished)
     {
         return CSSTV_ERROR_NOT_READY;
     }
 
-    return state->driver->get_image(image);
+    *image = state->image;
+
+    return CSSTV_OK;
 }
 
-csstv_status_t csstv_decoder_reset(csstv_decoder_t *decoder)
+csstv_status_t csstv_decoder_reset(
+    csstv_decoder_t *decoder)
 {
+    using csstv::DecoderStage;
+    using csstv::DecoderState;
+
     if (decoder == NULL)
     {
         return CSSTV_ERROR_NULL;
@@ -370,6 +388,9 @@ csstv_status_t csstv_decoder_reset(csstv_decoder_t *decoder)
 
 void csstv_decoder_deinit(csstv_decoder_t *decoder)
 {
+    using csstv::DecoderStage;
+    using csstv::DecoderState;
+
     if (decoder == NULL)
     {
         return;
