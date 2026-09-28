@@ -9,6 +9,8 @@
 
 namespace csstv {
 
+#if CSSTV_ENABLE_ENCODER
+
 /*
  * Encoder lifecycle:
  *
@@ -70,6 +72,8 @@ static_assert(alignof(::csstv_encoder_alignment_t) >= alignof(EncoderState),
 EncoderState *encoder_state(::csstv_encoder_t *encoder);
 const EncoderState *encoder_state(const ::csstv_encoder_t *encoder);
 
+#endif /* CSSTV_ENABLE_ENCODER */
+
 } /* namespace csstv */
 
 #if CSSTV_ENABLE_DECODER
@@ -127,10 +131,6 @@ struct DecoderState
     alignas(alignof(max_align_t)) uint8_t driver_state[kDriverStateSize];
 };
 
-/* Reinterpret a decoder handle's storage as the internal state. */
-DecoderState *decoder_state(::csstv_decoder_t *decoder);
-const DecoderState *decoder_state(const ::csstv_decoder_t *decoder);
-
 static_assert(sizeof(DecoderState) <= CSSTV_DECODER_STORAGE_SIZE,
               "csstv::DecoderState does not fit in CSSTV_DECODER_STORAGE_SIZE bytes -- "
               "increase CSSTV_DECODER_STORAGE_SIZE in csstv_config.h");
@@ -138,6 +138,10 @@ static_assert(sizeof(DecoderState) <= CSSTV_DECODER_STORAGE_SIZE,
 static_assert(alignof(::csstv_decoder_alignment_t) >= alignof(DecoderState),
               "csstv_decoder_alignment_t does not provide sufficient alignment for "
               "csstv::DecoderState");
+
+/* Reinterpret a decoder handle's storage as the internal state. */
+DecoderState *decoder_state(::csstv_decoder_t *decoder);
+const DecoderState *decoder_state(const ::csstv_decoder_t *decoder);
 
 } /* namespace csstv */
 
