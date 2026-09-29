@@ -219,6 +219,8 @@ csstv_status_t csstv_decoder_write(
         return CSSTV_ERROR_NULL;
     }
 
+    // cppcheck-suppress constVariablePointer
+    // state is modified later in this function
     DecoderState *state = csstv::decoder_state(decoder);
 
     if (state->stage == DecoderStage::kUninitialized)
@@ -285,8 +287,6 @@ csstv_status_t csstv_decoder_write(
         return CSSTV_OK;
     }
 
-    // cppcheck-suppress constVariablePointer
-    // state is modified later in this function
     state->stage = DecoderStage::kDecoding;
 
     const csstv_status_t write_status = state->driver->write(samples, count, consumed);
