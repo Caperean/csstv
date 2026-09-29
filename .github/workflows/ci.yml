@@ -238,6 +238,11 @@ jobs:
             -Wsign-conversion \
             -Wshadow \
             -Iinclude \
+            -Isrc/internal \
+            -Isrc/modes \
+            -DCSSTV_ENABLE_ENCODER=1 \
+            -DCSSTV_ENCODER_MODE_PD50=1 \
+            -Iinclude \
             -c /tmp/c_api_check.c \
             -o /tmp/c_api_check.o
 
