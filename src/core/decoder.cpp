@@ -239,7 +239,7 @@ csstv_status_t csstv_decoder_write(
             CSSTV_MODE_PD50, CSSTV_MODE_PD90, CSSTV_MODE_PD120,
             CSSTV_MODE_PD160, CSSTV_MODE_PD180, CSSTV_MODE_PD240, CSSTV_MODE_PD290
         };
-        
+
         csstv_mode_t detected_mode = CSSTV_MODE_AUTO;
         for (size_t i = 0; i < sizeof(pd_modes) / sizeof(pd_modes[0]); i++)
         {
@@ -253,19 +253,19 @@ csstv_status_t csstv_decoder_write(
                 }
             }
         }
-        
+
         if (detected_mode == CSSTV_MODE_AUTO)
         {
             return CSSTV_ERROR_UNSUPPORTED_MODE;
         }
-        
+
         /* Reinitialize with detected mode */
         csstv_status_t reinit_status = csstv_decoder_init(decoder, detected_mode, state->sample_rate);
         if (reinit_status != CSSTV_OK)
         {
             return reinit_status;
         }
-        
+
         /* Re-set the image with the new driver */
         state = csstv::decoder_state(decoder);
         const csstv_status_t set_status = state->driver->set_image(state->image);
