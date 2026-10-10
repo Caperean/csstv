@@ -5,6 +5,7 @@ A lightweight source code SSTV encode/decode library written for embedded system
 The current version of csstv supports the following PD modes for both
 encoding and decoding:
 
+
 -PD50
 -PD90
 -PD120
@@ -20,6 +21,8 @@ Additional mode families may be added in future releases.
 
 ## Procesor architectures:
 CSSTV is written and tested for following procesor architectures:
+
+
 -x86-32:       
 -x86-64:              
 -AVR      
