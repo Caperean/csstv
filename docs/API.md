@@ -352,20 +352,3 @@ if (status != CSSTV_OK) {
 }
 ```
 
-## Future ABI Considerations
-
-### Potential Changes
-- **Larger storage sizes:** May increase for new modes
-- **New structures:** May add new public types
-- **New modes:** May add mode-specific fields
-
-### Backward Compatibility
-- **Storage growth:** Will maintain minimum sizes
-- **Deprecation:** Will deprecate before removal
-- **Transition period:** Will support old APIs during transition
-
-## Contact
-
-For ABI-related questions or concerns:
-- GitHub Issues: https://github.com/Caperean/csstv/issues
-- Documentation: See include/csstv.h for API details
