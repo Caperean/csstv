@@ -147,4 +147,20 @@ const DecoderState *decoder_state(const ::csstv_decoder_t *decoder);
 
 #endif /* CSSTV_ENABLE_DECODER */
 
+#if CSSTV_ENABLE_TXRX
+
+#include "csstv_txrx_driver.h"
+
+namespace csstv {
+
+/*
+ * Reinterpret a txrx handle's storage as the internal state.
+ */
+TxRxState *txrx_state(csstv_txrx_t *txrx);
+const TxRxState *txrx_state(const csstv_txrx_t *txrx);
+
+} /* namespace csstv */
+
+#endif /* CSSTV_ENABLE_TXRX */
+
 #endif /* CSSTV_INTERNAL_H */

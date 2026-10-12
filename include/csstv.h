@@ -346,6 +346,110 @@ void csstv_decoder_deinit(
 #endif /* CSSTV_ENABLE_DECODER */
 
 /* ========================================================================== */
+/* TX/RX (Embedded Audio)                                                     */
+/* ========================================================================== */
+
+#if CSSTV_ENABLE_TXRX
+
+/*
+ * TX/RX driver type selection
+ */
+typedef enum
+{
+    CSSTV_TXRX_DRIVER_NONE = 0,
+    CSSTV_TXRX_DRIVER_PWM,      /* PWM/Timer-based (most MCUs) */
+    CSSTV_TXRX_DRIVER_ADC,      /* ADC-based input */
+    CSSTV_TXRX_DRIVER_I2S,      /* I2S audio interface */
+    CSSTV_TXRX_DRIVER_CUSTOM    /* User-provided driver */
+} csstv_txrx_driver_type_t;
+
+/*
+ * TX/RX handle for embedded audio I/O
+ */
+#ifndef CSSTV_TXRX_STORAGE_SIZE
+#define CSSTV_TXRX_STORAGE_SIZE 512U
+#endif
+
+typedef union
+{
+    uint64_t u64;
+    void *pointer;
+    long double long_double;
+    CSSTV_ALIGNAS(16) unsigned char force_alignment;
+
+} csstv_txrx_alignment_t;
+
+typedef struct
+{
+    csstv_txrx_alignment_t alignment;
+
+    uint8_t storage[CSSTV_TXRX_STORAGE_SIZE];
+
+} csstv_txrx_t;
+
+/*
+ * Initialize TX/RX driver with automatic mode selection.
+ * driver_type: Type of driver to use (PWM, ADC, I2S, or CUSTOM)
+ * direction: TX (transmit) or RX (receive)
+ * sample_rate: Audio sample rate (e.g., 8000, 16000, 48000 Hz)
+ * buffer_size: Buffer size in samples
+ */
+csstv_status_t csstv_txrx_init(
+    csstv_txrx_t *txrx,
+    csstv_txrx_driver_type_t driver_type,
+    int direction,  /* 0 for TX, 1 for RX */
+    uint32_t sample_rate,
+    uint32_t buffer_size
+);
+
+/*
+ * Start TX/RX operation.
+ */
+csstv_status_t csstv_txrx_start(csstv_txrx_t *txrx);
+
+/*
+ * Stop TX/RX operation.
+ */
+csstv_status_t csstv_txrx_stop(csstv_txrx_t *txrx);
+
+/*
+ * Write samples for TX operation.
+ */
+csstv_status_t csstv_txrx_write(
+    csstv_txrx_t *txrx,
+    const csstv_sample_t *samples,
+    size_t count,
+    size_t *written
+);
+
+/*
+ * Read samples for RX operation.
+ */
+csstv_status_t csstv_txrx_read(
+    csstv_txrx_t *txrx,
+    csstv_sample_t *samples,
+    size_t capacity,
+    size_t *consumed
+);
+
+/*
+ * Check if TX/RX is running.
+ */
+bool csstv_txrx_is_running(const csstv_txrx_t *txrx);
+
+/*
+ * Get available samples (RX) or space (TX).
+ */
+size_t csstv_txrx_available(const csstv_txrx_t *txrx);
+
+/*
+ * Cleanup TX/RX driver.
+ */
+void csstv_txrx_deinit(csstv_txrx_t *txrx);
+
+#endif /* CSSTV_ENABLE_TXRX */
+
+/* ========================================================================== */
 /* Mode information                                                           */
 /* ========================================================================== */
 

@@ -8,6 +8,20 @@ file(GLOB_RECURSE CSSTV_SOURCES
     src/*.cpp
 )
 
+# Conditionally exclude TX/RX sources if not enabled
+if(NOT CSSTV_ENABLE_TXRX)
+    list(FILTER CSSTV_SOURCES EXCLUDE REGEX ".*txrx.*\\.cpp$")
+endif()
+
+# Add platform-specific TX/RX sources if TX/RX is enabled
+# These are conditionally compiled via preprocessor guards
+if(CSSTV_ENABLE_TXRX)
+    file(GLOB_RECURSE PLATFORM_SOURCES
+        src/platform/*/*.cpp
+    )
+    list(APPEND CSSTV_SOURCES ${PLATFORM_SOURCES})
+endif()
+
 add_library(csstv_lib ${CSSTV_SOURCES})
 
 target_include_directories(csstv_lib PUBLIC
@@ -16,6 +30,11 @@ target_include_directories(csstv_lib PUBLIC
     ${CMAKE_SOURCE_DIR}/src/modes
     ${CMAKE_SOURCE_DIR}/tests
 )
+
+# Add TX/RX definitions if enabled
+if(CSSTV_ENABLE_TXRX)
+    target_compile_definitions(csstv_lib PUBLIC CSSTV_ENABLE_TXRX=1)
+endif()
 
 # All PD modes are exercised by the test suite (encode + decode).
 target_compile_definitions(csstv_lib PUBLIC

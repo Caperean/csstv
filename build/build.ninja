@@ -45,7 +45,7 @@ cmake_ninja_workdir = C$:/Users/jakub/Desktop/csstv/build/
 build cmake_object_order_depends_target_csstv_lib: phony || .
 
 build CMakeFiles/csstv_lib.dir/src/core/decoder.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/core/decoder.cpp || cmake_object_order_depends_target_csstv_lib
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\core\decoder.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -54,7 +54,7 @@ build CMakeFiles/csstv_lib.dir/src/core/decoder.cpp.obj: CXX_COMPILER__csstv_lib
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
 build CMakeFiles/csstv_lib.dir/src/core/encoder.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/core/encoder.cpp || cmake_object_order_depends_target_csstv_lib
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\core\encoder.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -63,7 +63,7 @@ build CMakeFiles/csstv_lib.dir/src/core/encoder.cpp.obj: CXX_COMPILER__csstv_lib
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
 build CMakeFiles/csstv_lib.dir/src/core/image.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/core/image.cpp || cmake_object_order_depends_target_csstv_lib
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\core\image.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -72,7 +72,7 @@ build CMakeFiles/csstv_lib.dir/src/core/image.cpp.obj: CXX_COMPILER__csstv_lib_u
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
 build CMakeFiles/csstv_lib.dir/src/core/mode.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/core/mode.cpp || cmake_object_order_depends_target_csstv_lib
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\core\mode.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -81,7 +81,7 @@ build CMakeFiles/csstv_lib.dir/src/core/mode.cpp.obj: CXX_COMPILER__csstv_lib_un
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
 build CMakeFiles/csstv_lib.dir/src/core/tone.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/core/tone.cpp || cmake_object_order_depends_target_csstv_lib
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\core\tone.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -89,8 +89,26 @@ build CMakeFiles/csstv_lib.dir/src/core/tone.cpp.obj: CXX_COMPILER__csstv_lib_un
   OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\core
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
+build CMakeFiles/csstv_lib.dir/src/core/txrx.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/core/txrx.cpp || cmake_object_order_depends_target_csstv_lib
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEP_FILE = CMakeFiles\csstv_lib.dir\src\core\txrx.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
+  OBJECT_DIR = CMakeFiles\csstv_lib.dir
+  OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\core
+  TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
+
+build CMakeFiles/csstv_lib.dir/src/core/txrx_stubs.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/core/txrx_stubs.cpp || cmake_object_order_depends_target_csstv_lib
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEP_FILE = CMakeFiles\csstv_lib.dir\src\core\txrx_stubs.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
+  OBJECT_DIR = CMakeFiles\csstv_lib.dir
+  OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\core
+  TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
+
 build CMakeFiles/csstv_lib.dir/src/internal/csstv_freestanding_runtime_support.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/internal/csstv_freestanding_runtime_support.cpp || cmake_object_order_depends_target_csstv_lib
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\internal\csstv_freestanding_runtime_support.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -99,7 +117,7 @@ build CMakeFiles/csstv_lib.dir/src/internal/csstv_freestanding_runtime_support.c
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
 build CMakeFiles/csstv_lib.dir/src/modes/pd/pd.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/modes/pd/pd.cpp || cmake_object_order_depends_target_csstv_lib
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\modes\pd\pd.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -108,7 +126,7 @@ build CMakeFiles/csstv_lib.dir/src/modes/pd/pd.cpp.obj: CXX_COMPILER__csstv_lib_
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
 build CMakeFiles/csstv_lib.dir/src/modes/pd/pd_decoder.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/modes/pd/pd_decoder.cpp || cmake_object_order_depends_target_csstv_lib
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\modes\pd\pd_decoder.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -117,12 +135,66 @@ build CMakeFiles/csstv_lib.dir/src/modes/pd/pd_decoder.cpp.obj: CXX_COMPILER__cs
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
 build CMakeFiles/csstv_lib.dir/src/modes/pd/pd_modes.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/modes/pd/pd_modes.cpp || cmake_object_order_depends_target_csstv_lib
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = CMakeFiles\csstv_lib.dir\src\modes\pd\pd_modes.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
   OBJECT_DIR = CMakeFiles\csstv_lib.dir
   OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\modes\pd
+  TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
+
+build CMakeFiles/csstv_lib.dir/src/platform/arm/txrx_adc_arm.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/platform/arm/txrx_adc_arm.cpp || cmake_object_order_depends_target_csstv_lib
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEP_FILE = CMakeFiles\csstv_lib.dir\src\platform\arm\txrx_adc_arm.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
+  OBJECT_DIR = CMakeFiles\csstv_lib.dir
+  OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\platform\arm
+  TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
+
+build CMakeFiles/csstv_lib.dir/src/platform/arm/txrx_pwm_arm.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/platform/arm/txrx_pwm_arm.cpp || cmake_object_order_depends_target_csstv_lib
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEP_FILE = CMakeFiles\csstv_lib.dir\src\platform\arm\txrx_pwm_arm.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
+  OBJECT_DIR = CMakeFiles\csstv_lib.dir
+  OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\platform\arm
+  TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
+
+build CMakeFiles/csstv_lib.dir/src/platform/avr/txrx_adc_avr.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/platform/avr/txrx_adc_avr.cpp || cmake_object_order_depends_target_csstv_lib
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEP_FILE = CMakeFiles\csstv_lib.dir\src\platform\avr\txrx_adc_avr.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
+  OBJECT_DIR = CMakeFiles\csstv_lib.dir
+  OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\platform\avr
+  TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
+
+build CMakeFiles/csstv_lib.dir/src/platform/avr/txrx_pwm_avr.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/platform/avr/txrx_pwm_avr.cpp || cmake_object_order_depends_target_csstv_lib
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEP_FILE = CMakeFiles\csstv_lib.dir\src\platform\avr\txrx_pwm_avr.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
+  OBJECT_DIR = CMakeFiles\csstv_lib.dir
+  OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\platform\avr
+  TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
+
+build CMakeFiles/csstv_lib.dir/src/platform/riscv/txrx_adc_riscv.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/platform/riscv/txrx_adc_riscv.cpp || cmake_object_order_depends_target_csstv_lib
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEP_FILE = CMakeFiles\csstv_lib.dir\src\platform\riscv\txrx_adc_riscv.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
+  OBJECT_DIR = CMakeFiles\csstv_lib.dir
+  OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\platform\riscv
+  TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
+
+build CMakeFiles/csstv_lib.dir/src/platform/riscv/txrx_pwm_riscv.cpp.obj: CXX_COMPILER__csstv_lib_unscanned_ C$:/Users/jakub/Desktop/csstv/src/platform/riscv/txrx_pwm_riscv.cpp || cmake_object_order_depends_target_csstv_lib
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEP_FILE = CMakeFiles\csstv_lib.dir\src\platform\riscv\txrx_pwm_riscv.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
+  OBJECT_DIR = CMakeFiles\csstv_lib.dir
+  OBJECT_FILE_DIR = CMakeFiles\csstv_lib.dir\src\platform\riscv
   TARGET_SUPPORT_DIR = CMakeFiles\csstv_lib.dir
 
 
@@ -133,7 +205,7 @@ build CMakeFiles/csstv_lib.dir/src/modes/pd/pd_modes.cpp.obj: CXX_COMPILER__csst
 #############################################
 # Link the static library libcsstv_lib.a
 
-build libcsstv_lib.a: CXX_STATIC_LIBRARY_LINKER__csstv_lib_ CMakeFiles/csstv_lib.dir/src/core/decoder.cpp.obj CMakeFiles/csstv_lib.dir/src/core/encoder.cpp.obj CMakeFiles/csstv_lib.dir/src/core/image.cpp.obj CMakeFiles/csstv_lib.dir/src/core/mode.cpp.obj CMakeFiles/csstv_lib.dir/src/core/tone.cpp.obj CMakeFiles/csstv_lib.dir/src/internal/csstv_freestanding_runtime_support.cpp.obj CMakeFiles/csstv_lib.dir/src/modes/pd/pd.cpp.obj CMakeFiles/csstv_lib.dir/src/modes/pd/pd_decoder.cpp.obj CMakeFiles/csstv_lib.dir/src/modes/pd/pd_modes.cpp.obj
+build libcsstv_lib.a: CXX_STATIC_LIBRARY_LINKER__csstv_lib_ CMakeFiles/csstv_lib.dir/src/core/decoder.cpp.obj CMakeFiles/csstv_lib.dir/src/core/encoder.cpp.obj CMakeFiles/csstv_lib.dir/src/core/image.cpp.obj CMakeFiles/csstv_lib.dir/src/core/mode.cpp.obj CMakeFiles/csstv_lib.dir/src/core/tone.cpp.obj CMakeFiles/csstv_lib.dir/src/core/txrx.cpp.obj CMakeFiles/csstv_lib.dir/src/core/txrx_stubs.cpp.obj CMakeFiles/csstv_lib.dir/src/internal/csstv_freestanding_runtime_support.cpp.obj CMakeFiles/csstv_lib.dir/src/modes/pd/pd.cpp.obj CMakeFiles/csstv_lib.dir/src/modes/pd/pd_decoder.cpp.obj CMakeFiles/csstv_lib.dir/src/modes/pd/pd_modes.cpp.obj CMakeFiles/csstv_lib.dir/src/platform/arm/txrx_adc_arm.cpp.obj CMakeFiles/csstv_lib.dir/src/platform/arm/txrx_pwm_arm.cpp.obj CMakeFiles/csstv_lib.dir/src/platform/avr/txrx_adc_avr.cpp.obj CMakeFiles/csstv_lib.dir/src/platform/avr/txrx_pwm_avr.cpp.obj CMakeFiles/csstv_lib.dir/src/platform/riscv/txrx_adc_riscv.cpp.obj CMakeFiles/csstv_lib.dir/src/platform/riscv/txrx_pwm_riscv.cpp.obj
   OBJECT_DIR = CMakeFiles\csstv_lib.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -191,7 +263,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 build cmake_object_order_depends_target_csstv_tests: phony || cmake_object_order_depends_target_csstv_lib
 
 build tests/CMakeFiles/csstv_tests.dir/test_main.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_ C$:/Users/jakub/Desktop/csstv/tests/test_main.cpp || cmake_object_order_depends_target_csstv_tests
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = tests\CMakeFiles\csstv_tests.dir\test_main.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -200,7 +272,7 @@ build tests/CMakeFiles/csstv_tests.dir/test_main.cpp.obj: CXX_COMPILER__csstv_te
   TARGET_SUPPORT_DIR = tests\CMakeFiles\csstv_tests.dir
 
 build tests/CMakeFiles/csstv_tests.dir/test_image.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_ C$:/Users/jakub/Desktop/csstv/tests/test_image.cpp || cmake_object_order_depends_target_csstv_tests
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = tests\CMakeFiles\csstv_tests.dir\test_image.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -209,7 +281,7 @@ build tests/CMakeFiles/csstv_tests.dir/test_image.cpp.obj: CXX_COMPILER__csstv_t
   TARGET_SUPPORT_DIR = tests\CMakeFiles\csstv_tests.dir
 
 build tests/CMakeFiles/csstv_tests.dir/test_modes.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_ C$:/Users/jakub/Desktop/csstv/tests/test_modes.cpp || cmake_object_order_depends_target_csstv_tests
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = tests\CMakeFiles\csstv_tests.dir\test_modes.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -218,7 +290,7 @@ build tests/CMakeFiles/csstv_tests.dir/test_modes.cpp.obj: CXX_COMPILER__csstv_t
   TARGET_SUPPORT_DIR = tests\CMakeFiles\csstv_tests.dir
 
 build tests/CMakeFiles/csstv_tests.dir/test_pd_all_modes.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_ C$:/Users/jakub/Desktop/csstv/tests/test_pd_all_modes.cpp || cmake_object_order_depends_target_csstv_tests
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = tests\CMakeFiles\csstv_tests.dir\test_pd_all_modes.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -227,7 +299,7 @@ build tests/CMakeFiles/csstv_tests.dir/test_pd_all_modes.cpp.obj: CXX_COMPILER__
   TARGET_SUPPORT_DIR = tests\CMakeFiles\csstv_tests.dir
 
 build tests/CMakeFiles/csstv_tests.dir/test_encoder_lifecycle.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_ C$:/Users/jakub/Desktop/csstv/tests/test_encoder_lifecycle.cpp || cmake_object_order_depends_target_csstv_tests
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = tests\CMakeFiles\csstv_tests.dir\test_encoder_lifecycle.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests
@@ -236,7 +308,7 @@ build tests/CMakeFiles/csstv_tests.dir/test_encoder_lifecycle.cpp.obj: CXX_COMPI
   TARGET_SUPPORT_DIR = tests\CMakeFiles\csstv_tests.dir
 
 build tests/CMakeFiles/csstv_tests.dir/test_decoder_lifecycle.cpp.obj: CXX_COMPILER__csstv_tests_unscanned_ C$:/Users/jakub/Desktop/csstv/tests/test_decoder_lifecycle.cpp || cmake_object_order_depends_target_csstv_tests
-  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
+  DEFINES = -DCSSTV_DECODER_MODE_PD120=1 -DCSSTV_DECODER_MODE_PD160=1 -DCSSTV_DECODER_MODE_PD180=1 -DCSSTV_DECODER_MODE_PD240=1 -DCSSTV_DECODER_MODE_PD290=1 -DCSSTV_DECODER_MODE_PD50=1 -DCSSTV_DECODER_MODE_PD90=1 -DCSSTV_ENABLE_DECODER=1 -DCSSTV_ENABLE_ENCODER=1 -DCSSTV_ENABLE_TXRX=1 -DCSSTV_ENCODER_MODE_PD120=1 -DCSSTV_ENCODER_MODE_PD160=1 -DCSSTV_ENCODER_MODE_PD180=1 -DCSSTV_ENCODER_MODE_PD240=1 -DCSSTV_ENCODER_MODE_PD290=1 -DCSSTV_ENCODER_MODE_PD50=1 -DCSSTV_ENCODER_MODE_PD90=1
   DEP_FILE = tests\CMakeFiles\csstv_tests.dir\test_decoder_lifecycle.cpp.obj.d
   FLAGS = -std=gnu++17
   INCLUDES = -IC:/Users/jakub/Desktop/csstv/include -IC:/Users/jakub/Desktop/csstv/src/internal -IC:/Users/jakub/Desktop/csstv/src/modes -IC:/Users/jakub/Desktop/csstv/tests

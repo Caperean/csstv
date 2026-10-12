@@ -225,6 +225,9 @@ CSSTV_BINARY_DIR:STATIC=C:/Users/jakub/Desktop/csstv/build
 //Enable decoder support
 CSSTV_ENABLE_DECODER:BOOL=OFF
 
+//No help, variable specified on the command line.
+CSSTV_ENABLE_TXRX:UNINITIALIZED=ON
+
 //Value Computed by CMake
 CSSTV_IS_TOP_LEVEL:STATIC=ON
 
